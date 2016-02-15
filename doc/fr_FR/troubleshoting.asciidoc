@@ -1,0 +1,13 @@
+[panel,danger]
+.Mon Flower Power n'apparait pas ?
+--
+Vous devez enregistrer votre Flower via l'application Parrot avant tout pour l'initialiser
+
+--
+
+[panel,danger]
+.Mes données ne se mettent pas à jour ?
+--
+Vérifier le log du service, si vous ne voyer pas de lignes "getsamples" dans la connexion régulière, vérifier que votre clef Bluetooth n'est pas utilisé pour autre chose
+
+--

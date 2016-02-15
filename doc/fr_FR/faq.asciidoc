@@ -1,0 +1,11 @@
+[panel,primary]
+.Est-ce qu'on utilise l'API Parrot ?
+--
+Non, ce plugin utilise la connexion bluetooth vers les Flower Power. Vous pouvez choisir d'activer également la remontée vers l'API Parrot.
+--
+
+[panel,primary]
+.Est-ce qu'on peut utiliser en déporté ?
+--
+Oui, mais ce n'est pas le plugin qui fera l'éxécution distante. Dans ce cas, il faut mettre en place un cron par exemple sur le déporté pour éxécuter le nodejs.
+--

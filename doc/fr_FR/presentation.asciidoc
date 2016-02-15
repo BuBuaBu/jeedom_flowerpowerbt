@@ -1,0 +1,5 @@
+==== Flower Power, bluetooth
+
+Ce plugin utilise une connexion bluetooth fonctionnelle sur Jeedom pour se connecter aux flower power et remonter les informations.
+
+Il n'est pas nécessaire de créer les équipements, le plugin créer automatiquement les Flower Power trouvées.

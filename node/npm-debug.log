@@ -1,0 +1,266 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install' ]
+2 info using npm@3.3.12
+3 info using node@v5.4.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchNamedPackageData async
+20 silly mapToRegistry name async
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/async
+24 silly fetchNamedPackageData chance
+25 silly mapToRegistry name chance
+26 silly mapToRegistry using default registry
+27 silly mapToRegistry registry https://registry.npmjs.org/
+28 silly mapToRegistry uri https://registry.npmjs.org/chance
+29 silly fetchNamedPackageData cli-color
+30 silly mapToRegistry name cli-color
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.org/
+33 silly mapToRegistry uri https://registry.npmjs.org/cli-color
+34 silly fetchNamedPackageData deasync
+35 silly mapToRegistry name deasync
+36 silly mapToRegistry using default registry
+37 silly mapToRegistry registry https://registry.npmjs.org/
+38 silly mapToRegistry uri https://registry.npmjs.org/deasync
+39 silly fetchNamedPackageData figures
+40 silly mapToRegistry name figures
+41 silly mapToRegistry using default registry
+42 silly mapToRegistry registry https://registry.npmjs.org/
+43 silly mapToRegistry uri https://registry.npmjs.org/figures
+44 silly fetchNamedPackageData flower-power-api
+45 silly mapToRegistry name flower-power-api
+46 silly mapToRegistry using default registry
+47 silly mapToRegistry registry https://registry.npmjs.org/
+48 silly mapToRegistry uri https://registry.npmjs.org/flower-power-api
+49 silly fetchNamedPackageData flower-power-ble
+50 silly mapToRegistry name flower-power-ble
+51 silly mapToRegistry using default registry
+52 silly mapToRegistry registry https://registry.npmjs.org/
+53 silly mapToRegistry uri https://registry.npmjs.org/flower-power-ble
+54 silly fetchNamedPackageData nedb
+55 silly mapToRegistry name nedb
+56 silly mapToRegistry using default registry
+57 silly mapToRegistry registry https://registry.npmjs.org/
+58 silly mapToRegistry uri https://registry.npmjs.org/nedb
+59 verbose request uri https://registry.npmjs.org/async
+60 verbose request no auth needed
+61 info attempt registry request try #1 at 10:14:36
+62 verbose request id 5b58c6a02b42a7f9
+63 http request GET https://registry.npmjs.org/async
+64 verbose request uri https://registry.npmjs.org/figures
+65 verbose request no auth needed
+66 info attempt registry request try #1 at 10:14:36
+67 http request GET https://registry.npmjs.org/figures
+68 verbose request uri https://registry.npmjs.org/flower-power-api
+69 verbose request no auth needed
+70 info attempt registry request try #1 at 10:14:36
+71 http request GET https://registry.npmjs.org/flower-power-api
+72 verbose request uri https://registry.npmjs.org/chance
+73 verbose request no auth needed
+74 info attempt registry request try #1 at 10:14:36
+75 http request GET https://registry.npmjs.org/chance
+76 verbose request uri https://registry.npmjs.org/cli-color
+77 verbose request no auth needed
+78 info attempt registry request try #1 at 10:14:36
+79 http request GET https://registry.npmjs.org/cli-color
+80 verbose request uri https://registry.npmjs.org/deasync
+81 verbose request no auth needed
+82 info attempt registry request try #1 at 10:14:36
+83 http request GET https://registry.npmjs.org/deasync
+84 verbose request uri https://registry.npmjs.org/flower-power-ble
+85 verbose request no auth needed
+86 info attempt registry request try #1 at 10:14:36
+87 http request GET https://registry.npmjs.org/flower-power-ble
+88 verbose request uri https://registry.npmjs.org/nedb
+89 verbose request no auth needed
+90 info attempt registry request try #1 at 10:14:36
+91 http request GET https://registry.npmjs.org/nedb
+92 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+93 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+94 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+95 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+96 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+97 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+98 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+99 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+100 info attempt registry request try #2 at 10:14:46
+101 http request GET https://registry.npmjs.org/async
+102 info attempt registry request try #2 at 10:14:46
+103 http request GET https://registry.npmjs.org/figures
+104 info attempt registry request try #2 at 10:14:46
+105 http request GET https://registry.npmjs.org/flower-power-api
+106 info attempt registry request try #2 at 10:14:46
+107 http request GET https://registry.npmjs.org/cli-color
+108 info attempt registry request try #2 at 10:14:46
+109 http request GET https://registry.npmjs.org/chance
+110 info attempt registry request try #2 at 10:14:46
+111 http request GET https://registry.npmjs.org/flower-power-ble
+112 info attempt registry request try #2 at 10:14:46
+113 http request GET https://registry.npmjs.org/deasync
+114 info attempt registry request try #2 at 10:14:46
+115 http request GET https://registry.npmjs.org/nedb
+116 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+117 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+118 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+119 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+120 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+121 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+122 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+123 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=write EPROTO
+124 info attempt registry request try #3 at 10:15:46
+125 http request GET https://registry.npmjs.org/async
+126 info attempt registry request try #3 at 10:15:46
+127 http request GET https://registry.npmjs.org/figures
+128 info attempt registry request try #3 at 10:15:46
+129 http request GET https://registry.npmjs.org/chance
+130 info attempt registry request try #3 at 10:15:46
+131 http request GET https://registry.npmjs.org/flower-power-api
+132 info attempt registry request try #3 at 10:15:46
+133 http request GET https://registry.npmjs.org/cli-color
+134 info attempt registry request try #3 at 10:15:46
+135 http request GET https://registry.npmjs.org/deasync
+136 info attempt registry request try #3 at 10:15:46
+137 http request GET https://registry.npmjs.org/nedb
+138 info attempt registry request try #3 at 10:15:46
+139 http request GET https://registry.npmjs.org/flower-power-ble
+140 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+140 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+140 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+140 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+140 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+140 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+140 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+140 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+140 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+140 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+140 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+140 silly fetchPackageMetaData  error for async@^1.5.1 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+141 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+141 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+141 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+141 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+141 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+141 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+141 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+141 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+141 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+141 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+141 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+141 silly fetchPackageMetaData  error for flower-power-api@^1.4.0 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+142 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+142 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+142 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+142 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+142 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+142 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+142 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+142 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+142 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+142 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+142 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+142 silly fetchPackageMetaData  error for figures@^1.4.0 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+143 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+143 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+143 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+143 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+143 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+143 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+143 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+143 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+143 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+143 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+143 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+143 silly fetchPackageMetaData  error for chance@^0.8.0 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+144 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+144 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+144 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+144 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+144 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+144 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+144 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+144 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+144 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+144 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+144 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+144 silly fetchPackageMetaData  error for deasync@^0.1.4 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+145 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+145 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+145 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+145 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+145 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+145 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+145 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+145 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+145 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+145 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+145 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+145 silly fetchPackageMetaData  error for cli-color@^1.1.0 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+146 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+146 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+146 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+146 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+146 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+146 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+146 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+146 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+146 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+146 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+146 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+146 silly fetchPackageMetaData  error for nedb@^1.2.1 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+147 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=write EPROTO
+147 silly fetchPackageMetaData     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+147 silly fetchPackageMetaData     at ClientRequest.g (events.js:260:16)
+147 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+147 silly fetchPackageMetaData     at ClientRequest.emit (events.js:169:7)
+147 silly fetchPackageMetaData     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+147 silly fetchPackageMetaData     at emitOne (events.js:77:13)
+147 silly fetchPackageMetaData     at TLSSocket.emit (events.js:169:7)
+147 silly fetchPackageMetaData     at onwriteError (_stream_writable.js:304:10)
+147 silly fetchPackageMetaData     at onwrite (_stream_writable.js:322:5)
+147 silly fetchPackageMetaData     at WritableState.onwrite (_stream_writable.js:89:5)
+147 silly fetchPackageMetaData  error for flower-power-ble@^0.5.0 { [Error: tunneling socket could not be established, cause=write EPROTO] code: 'ECONNRESET' }
+148 silly rollbackFailedOptional Starting
+149 silly rollbackFailedOptional Finishing
+150 silly runTopLevelLifecycles Starting
+151 silly runTopLevelLifecycles Finishing
+152 silly install printInstalled
+153 verbose stack Error: tunneling socket could not be established, cause=write EPROTO
+153 verbose stack     at ClientRequest.onError (/usr/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:174:17)
+153 verbose stack     at ClientRequest.g (events.js:260:16)
+153 verbose stack     at emitOne (events.js:77:13)
+153 verbose stack     at ClientRequest.emit (events.js:169:7)
+153 verbose stack     at TLSSocket.socketErrorListener (_http_client.js:262:9)
+153 verbose stack     at emitOne (events.js:77:13)
+153 verbose stack     at TLSSocket.emit (events.js:169:7)
+153 verbose stack     at onwriteError (_stream_writable.js:304:10)
+153 verbose stack     at onwrite (_stream_writable.js:322:5)
+153 verbose stack     at WritableState.onwrite (_stream_writable.js:89:5)
+154 verbose cwd /home/cedric/jeedom/flowerpowerbt/node
+155 error Linux 4.2.0-24-generic
+156 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install"
+157 error node v5.4.1
+158 error npm  v3.3.12
+159 error code ECONNRESET
+160 error network tunneling socket could not be established, cause=write EPROTO
+160 error network This is most likely not a problem with npm itself
+160 error network and is related to network connectivity.
+160 error network In most cases you are behind a proxy or have bad network settings.
+160 error network
+160 error network If you are behind a proxy, please make sure that the
+160 error network 'proxy' config is set properly.  See: 'npm help config'
+161 verbose exit [ 1, true ]

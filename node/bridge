@@ -1,0 +1,148 @@
+#!/bin/bash
+
+pid=0
+filestart="./start.js"
+filetest="./test.js"
+
+usage () {
+	echo "Flower Bridge: See Flowers fall on the bridge"
+	echo "Every 15 minutes (default), all of your Flower Power will be update"
+	echo
+	echo "USAGE: ./bridge cmd [delay]"
+	echo
+	echo "ARGUMENTS:"
+	echo "	cmd:"
+	echo "		display:	Lannch and show updating into your console"
+	echo "		background:	Launch updatind to background. To know what happening: \`$ ./updatedb\`"
+	echo "		restart:	Stop the current program and re-launch. If no program is running, 'restart' is similar as 'background'"
+	echo "		status:		Show if the program is running or not"
+	echo "		stop: 		Stop all processings and kill the program"
+	echo
+	echo "	delay (optional):"
+	echo "		Specify the loop time in minute"
+	echo
+	echo "EXAMPLES:"
+	echo "	./bridge display		: (loop every 15 minutes)"
+	echo "	./bridge display 60		: (loop every 1 hour)"
+	echo "	./bridge background 1440	: (loop every day without render in console)"
+	echo "	./bridge stop			: (Stop the program)"
+	echo "	./bridge restart		: (Restart the program)"
+	echo
+	echo "AUTHOR:"
+	echo "	Written by Bruno Sautron."
+}
+
+welcome () {
+	echo
+	echo "-- Flower Bridge --"
+	echo
+}
+
+pidexist () {
+	kill -0 $1 2> /dev/null
+}
+
+isrunning () {
+	pid=$(head -n 1 ".flowerIsRunning" 2> /dev/null)
+	if [ -z "$pid" ]
+	then
+		return 1
+	else
+		pidexist $pid
+		if [ "$?" == 0 ]
+		then
+			return 0
+		fi
+		return 1
+	fi
+}
+
+statusit () {
+	isrunning
+	if [ "$?" == 0 ]
+	then
+		echo "[$pid] A program is running"
+	else
+		echo "No program is running"
+	fi
+}
+
+displayit () {
+	welcome
+	isrunning
+	if [ "$?" == 1 ]
+	then
+		node $1 $2
+	else
+		echo "[$pid]: A program was already running"
+		stopit
+		node $1 $2
+	fi
+}
+
+backgroundit () {
+	welcome
+	isrunning
+	if [ "$?" == 1 ]
+	then
+		node $1 $2 2> trace.log 1> /dev/null &
+		echo $! > ".flowerIsRunning"
+		echo "To see your log:"
+		echo "$> ./updatedb"
+	else
+		echo "[$pid]: A program is already running"
+	fi
+}
+
+stopit () {
+	isrunning
+	if [ "$?" == 1 ]
+	then
+		echo "No program is running"
+	else
+		killit
+		echo "Bye :)"
+	fi
+}
+
+restartit () {
+	stopit
+	backgroundit $1 $2
+}
+
+killit () {
+	kill $pid
+	rm -f ".flowerIsRunning"
+	echo "kill" $pid
+	pid=0
+}
+
+if [ -z "$1" ]
+then
+	usage
+else
+	if [ "$1" == "display" ]
+	then
+		displayit $filestart $2
+	elif [ "$1" == "background" ]
+	then
+		backgroundit $filestart $2
+	elif [ "$1" == "stop" ]
+	then
+		stopit
+	elif [ $1 == "restart" ]
+	then
+		restartit $filestart $2
+	elif [ $1 == "running" ]
+	then
+		isrunning
+	elif [ $1 == "status" ]
+	then
+		statusit
+	elif [ $1 == "test" ]
+	then
+		displayit $filetest $2
+	else
+		usage
+	fi
+fi
