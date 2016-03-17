@@ -22,23 +22,16 @@ if (!class_exists('fpParrotAPI')) { require_once dirname(__FILE__) . '/../../3rd
 
 class flowerpowerbt extends eqLogic {
 
+  public static $_widgetPossibility = array('custom' => true);
+
   public static function cronHourly() {
-      flowerpowerbt::getFlower();
-      log::add('flowerpowerbt', 'debug', 'Récupération valeurs');
-      foreach (eqLogic::byType('flowerpowerbt', true) as $flowerpowerbt) {
-        $mc = cache::byKey('flowerpowerbtWidgetdashboard' . $flowerpowerbt->getId());
-        $mc->remove();
-        $flowerpowerbt->toHtml('dashboard');
-        $mc = cache::byKey('flowerpowerbtWidgetmobile' . $flowerpowerbt->getId());
-        $mc->remove();
-        $flowerpowerbt->toHtml('mobile');
-        $flowerpowerbt->refreshWidget();
-      }
+    flowerpowerbt::getFlower();
+    log::add('flowerpowerbt', 'debug', 'Récupération valeurs');
   }
 
   public static function cronDaily() {
-      config::save('refresh_token', '',  'flowerpowerbt');
-      flowerpowerbt::getGarden();
+    config::save('refresh_token', '',  'flowerpowerbt');
+    flowerpowerbt::getGarden();
   }
 
   public static function dependancy_info() {
@@ -141,12 +134,12 @@ class flowerpowerbt extends eqLogic {
     $sensor_path = realpath(dirname(__FILE__) . '/../../node/credentials.json');
     log::add('flowerpowerbt', 'debug', $sensor_path);
     $content = '{
-      	"client_id": "' . $clientID . '",
-      	"client_secret": "' . $clientSecret. '",
-      	"username": "' . $userName. '",
-      	"password": "' . $passPhrase. '"
-}';
-  file_put_contents($sensor_path, $content);
+      "client_id": "' . $clientID . '",
+      "client_secret": "' . $clientSecret. '",
+      "username": "' . $userName. '",
+      "password": "' . $passPhrase. '"
+    }';
+    file_put_contents($sensor_path, $content);
     /*$content1 = '{';
     $content2 = '      	"client_id": "' . $clientID . '",';
     $content3 = '      	"client_secret": "' . $clientSecret. '",';
@@ -168,14 +161,14 @@ class flowerpowerbt extends eqLogic {
       $userName = config::byKey('userName','flowerpowerbt');
       $passPhrase = config::byKey('passPhrase','flowerpowerbt');
       $access_token=config::byKey('access_token','flowerpowerbt');
-  		$refresh_token=config::byKey('refresh_token','flowerpowerbt');
-  		$expire_time=config::byKey('expire_time','flowerpowerbt');
-  		$flowerpower=new fpParrotAPI($clientID,$clientSecret,$userName,$passPhrase,$access_token, $refresh_token, $expire_time);
-  		if(is_object($flowerpower)){
+      $refresh_token=config::byKey('refresh_token','flowerpowerbt');
+      $expire_time=config::byKey('expire_time','flowerpowerbt');
+      $flowerpower=new fpParrotAPI($clientID,$clientSecret,$userName,$passPhrase,$access_token, $refresh_token, $expire_time);
+      if(is_object($flowerpower)){
         config::save('access_token', $flowerpower->access_token,  'flowerpowerbt');
         config::save('refresh_token', $flowerpower->refresh_token,  'flowerpowerbt');
         config::save('expire_time', $flowerpower->expire_time,  'flowerpowerbt');
-  		}
+      }
 
       $plants=$flowerpower->getPlants();
       //log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
@@ -368,14 +361,14 @@ class flowerpowerbt extends eqLogic {
       $userName = config::byKey('userName','flowerpowerbt');
       $passPhrase = config::byKey('passPhrase','flowerpowerbt');
       $access_token=config::byKey('access_token','flowerpowerbt');
-  		$refresh_token=config::byKey('refresh_token','flowerpowerbt');
-  		$expire_time=config::byKey('expire_time','flowerpowerbt');
-  		$flowerpower=new fpParrotAPI($clientID,$clientSecret,$userName,$passPhrase,$access_token, $refresh_token, $expire_time);
-  		if(is_object($flowerpower)){
+      $refresh_token=config::byKey('refresh_token','flowerpowerbt');
+      $expire_time=config::byKey('expire_time','flowerpowerbt');
+      $flowerpower=new fpParrotAPI($clientID,$clientSecret,$userName,$passPhrase,$access_token, $refresh_token, $expire_time);
+      if(is_object($flowerpower)){
         config::save('access_token', $flowerpower->access_token,  'flowerpowerbt');
         config::save('refresh_token', $flowerpower->refresh_token,  'flowerpowerbt');
         config::save('expire_time', $flowerpower->expire_time,  'flowerpowerbt');
-  		}
+      }
 
       $values=$flowerpower->getValues();
       //log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
@@ -384,106 +377,106 @@ class flowerpowerbt extends eqLogic {
       //log::add('flowerpowerbt', 'debug', 'SensorValues ' . print_r($sensors,true));
 
       foreach ($values as $mesure) {
-        	$module=json_encode($mesure);
-          $flowerpower=json_decode($module, true);
-          $flowerpowerbt = self::byLogicalId($flowerpower['location_identifier'], 'flowerpowerbt');
-          $id = $flowerpowerbt->getId();
-          $alert = str_replace('#','',$flowerpowerbt->getConfiguration('alert'));
-          $flowerpowerbt->save();
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'air_temperature');
-          $cmdlogic->setConfiguration('value', round($flowerpower['air_temperature']['gauge_values']['current_value'],2));
-          $cmdlogic->save();
-          $cmdlogic->event(round($flowerpower['air_temperature']['gauge_values']['current_value'],2));
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'air_temperature_status');
-          $cmdlogic->setConfiguration('value', $flowerpower['air_temperature']['status_key']);
-          if ($flowerpower['air_temperature']['status_key'] != 'status_ok') {
-            if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
-              $cmdlogic->setConfiguration('alert', '1');
-              $cmdalerte = cmd::byId($alert);
-              $options['title'] = "Alerte Flower Power";
-              $options['message'] = $flowerpower['air_temperature']['instruction_key'];
-              $cmdalerte->execCmd($options);
-            }
-          } else {
-              $cmdlogic->setConfiguration('alert', '0');
+        $module=json_encode($mesure);
+        $flowerpower=json_decode($module, true);
+        $flowerpowerbt = self::byLogicalId($flowerpower['location_identifier'], 'flowerpowerbt');
+        $id = $flowerpowerbt->getId();
+        $alert = str_replace('#','',$flowerpowerbt->getConfiguration('alert'));
+        $flowerpowerbt->save();
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'air_temperature');
+        $cmdlogic->setConfiguration('value', round($flowerpower['air_temperature']['gauge_values']['current_value'],2));
+        $cmdlogic->save();
+        $cmdlogic->event(round($flowerpower['air_temperature']['gauge_values']['current_value'],2));
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'air_temperature_status');
+        $cmdlogic->setConfiguration('value', $flowerpower['air_temperature']['status_key']);
+        if ($flowerpower['air_temperature']['status_key'] != 'status_ok') {
+          if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
+            $cmdlogic->setConfiguration('alert', '1');
+            $cmdalerte = cmd::byId($alert);
+            $options['title'] = "Alerte Flower Power";
+            $options['message'] = $flowerpower['air_temperature']['instruction_key'];
+            $cmdalerte->execCmd($options);
           }
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['air_temperature']['status_key']);
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'air_temperature_instruction');
-          $cmdlogic->setConfiguration('value', $flowerpower['air_temperature']['instruction_key']);
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['air_temperature']['instruction_key']);
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture');
-          $cmdlogic->setConfiguration('value', round($flowerpower['soil_moisture']['gauge_values']['current_value'],2));
-          $cmdlogic->save();
-          $cmdlogic->event(round($flowerpower['soil_moisture']['gauge_values']['current_value'],2));
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture_status');
-          $cmdlogic->setConfiguration('value', $flowerpower['soil_moisture']['status_key']);
-          if ($flowerpower['soil_moisture']['status_key'] != 'status_ok') {
-            if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
-              $cmdlogic->setConfiguration('alert', '1');
-              $cmdalerte = cmd::byId($alert);
-              $options['title'] = "Alerte Flower Power";
-              $options['message'] = $flowerpower['soil_moisture']['instruction_key'];
-              $cmdalerte->execCmd($options);
-            }
-          } else {
-              $cmdlogic->setConfiguration('alert', '0');
+        } else {
+          $cmdlogic->setConfiguration('alert', '0');
+        }
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['air_temperature']['status_key']);
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'air_temperature_instruction');
+        $cmdlogic->setConfiguration('value', $flowerpower['air_temperature']['instruction_key']);
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['air_temperature']['instruction_key']);
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture');
+        $cmdlogic->setConfiguration('value', round($flowerpower['soil_moisture']['gauge_values']['current_value'],2));
+        $cmdlogic->save();
+        $cmdlogic->event(round($flowerpower['soil_moisture']['gauge_values']['current_value'],2));
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture_status');
+        $cmdlogic->setConfiguration('value', $flowerpower['soil_moisture']['status_key']);
+        if ($flowerpower['soil_moisture']['status_key'] != 'status_ok') {
+          if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
+            $cmdlogic->setConfiguration('alert', '1');
+            $cmdalerte = cmd::byId($alert);
+            $options['title'] = "Alerte Flower Power";
+            $options['message'] = $flowerpower['soil_moisture']['instruction_key'];
+            $cmdalerte->execCmd($options);
           }
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['soil_moisture']['status_key']);
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture_instruction');
-          $cmdlogic->setConfiguration('value', $flowerpower['soil_moisture']['instruction_key']);
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['soil_moisture']['instruction_key']);
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'fertilizer');
-          $cmdlogic->setConfiguration('value', round($flowerpower['fertilizer']['gauge_values']['current_value'],2));
-          $cmdlogic->save();
-          $cmdlogic->event(round($flowerpower['fertilizer']['gauge_values']['current_value'],2));
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'fertilizer_status');
-          $cmdlogic->setConfiguration('value', $flowerpower['fertilizer']['status_key']);
-          if ($flowerpower['fertilizer']['status_key'] != 'status_ok') {
-            if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
-              $cmdlogic->setConfiguration('alert', '1');
-              $cmdalerte = cmd::byId($alert);
-              $options['title'] = "Alerte Flower Power";
-              $options['message'] = $flowerpower['fertilizer']['instruction_key'];
-              $cmdalerte->execCmd($options);
-            }
-          } else {
-              $cmdlogic->setConfiguration('alert', '0');
+        } else {
+          $cmdlogic->setConfiguration('alert', '0');
+        }
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['soil_moisture']['status_key']);
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture_instruction');
+        $cmdlogic->setConfiguration('value', $flowerpower['soil_moisture']['instruction_key']);
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['soil_moisture']['instruction_key']);
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'fertilizer');
+        $cmdlogic->setConfiguration('value', round($flowerpower['fertilizer']['gauge_values']['current_value'],2));
+        $cmdlogic->save();
+        $cmdlogic->event(round($flowerpower['fertilizer']['gauge_values']['current_value'],2));
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'fertilizer_status');
+        $cmdlogic->setConfiguration('value', $flowerpower['fertilizer']['status_key']);
+        if ($flowerpower['fertilizer']['status_key'] != 'status_ok') {
+          if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
+            $cmdlogic->setConfiguration('alert', '1');
+            $cmdalerte = cmd::byId($alert);
+            $options['title'] = "Alerte Flower Power";
+            $options['message'] = $flowerpower['fertilizer']['instruction_key'];
+            $cmdalerte->execCmd($options);
           }
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['fertilizer']['status_key']);
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'fertilizer_instruction');
-          $cmdlogic->setConfiguration('value', $flowerpower['fertilizer']['instruction_key']);
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['fertilizer']['instruction_key']);
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light');
-          $cmdlogic->setConfiguration('value', round($flowerpower['light']['gauge_values']['current_value'],2));
-          $cmdlogic->save();
-          $cmdlogic->event(round($flowerpower['light']['gauge_values']['current_value'],2));
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light_status');
-          $cmdlogic->setConfiguration('value', $flowerpower['light']['status_key']);
-          if ($flowerpower['light']['status_key'] != 'status_ok') {
-            if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
-              $cmdlogic->setConfiguration('alert', '1');
-              $cmdalerte = cmd::byId($alert);
-              $options['title'] = "Alerte Flower Power";
-              $options['message'] = $flowerpower['light']['instruction_key'];
-              $cmdalerte->execCmd($options);
-            }
-          } else {
-              $cmdlogic->setConfiguration('alert', '0');
+        } else {
+          $cmdlogic->setConfiguration('alert', '0');
+        }
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['fertilizer']['status_key']);
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'fertilizer_instruction');
+        $cmdlogic->setConfiguration('value', $flowerpower['fertilizer']['instruction_key']);
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['fertilizer']['instruction_key']);
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light');
+        $cmdlogic->setConfiguration('value', round($flowerpower['light']['gauge_values']['current_value'],2));
+        $cmdlogic->save();
+        $cmdlogic->event(round($flowerpower['light']['gauge_values']['current_value'],2));
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light_status');
+        $cmdlogic->setConfiguration('value', $flowerpower['light']['status_key']);
+        if ($flowerpower['light']['status_key'] != 'status_ok') {
+          if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
+            $cmdlogic->setConfiguration('alert', '1');
+            $cmdalerte = cmd::byId($alert);
+            $options['title'] = "Alerte Flower Power";
+            $options['message'] = $flowerpower['light']['instruction_key'];
+            $cmdalerte->execCmd($options);
           }
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['light']['status_key']);
-          $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light_instruction');
-          $cmdlogic->setConfiguration('value', $flowerpower['light']['instruction_key']);
-          $cmdlogic->save();
-          $cmdlogic->event($flowerpower['light']['instruction_key']);
+        } else {
+          $cmdlogic->setConfiguration('alert', '0');
+        }
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['light']['status_key']);
+        $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light_instruction');
+        $cmdlogic->setConfiguration('value', $flowerpower['light']['instruction_key']);
+        $cmdlogic->save();
+        $cmdlogic->event($flowerpower['light']['instruction_key']);
 
-			}
+      }
 
       foreach ($sensors as $mesure) {
         $module=json_encode($mesure);
@@ -500,96 +493,37 @@ class flowerpowerbt extends eqLogic {
   }
 
   public function toHtml($_version = 'dashboard') {
-
-    $mc = cache::byKey('flowerpowerbtWidget' . $_version . $this->getId());
-    if ($mc->getValue() != '') {
-      return $mc->getValue();
+    $replace = $this->preToHtml($_version);
+    if (!is_array($replace)) {
+      return $replace;
     }
-    if ($this->getIsEnable() != 1) {
-            return '';
-        }
-        if (!$this->hasRight('r')) {
-            return '';
-        }
-        $_version = jeedom::versionAlias($_version);
-        if ($this->getDisplay('hideOn' . $_version) == 1) {
-            return '';
-        }
-        $vcolor = 'cmdColor';
-        if ($_version == 'mobile') {
-            $vcolor = 'mcmdColor';
-        }
-        $parameters = $this->getDisplay('parameters');
-        $cmdColor = ($this->getPrimaryCategory() == '') ? '' : jeedom::getConfiguration('eqLogic:category:' . $this->getPrimaryCategory() . ':' . $vcolor);
-        if (is_array($parameters) && isset($parameters['background_cmd_color'])) {
-            $cmdColor = $parameters['background_cmd_color'];
-        }
+    $version = jeedom::versionAlias($_version);
+    if ($this->getDisplay('hideOn' . $version) == 1) {
+      return '';
+    }
 
-        if (($_version == 'dview' || $_version == 'mview') && $this->getDisplay('doNotShowNameOnView') == 1) {
-            $replace['#name#'] = '';
-            $replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-        }
-        if (($_version == 'mobile' || $_version == 'dashboard') && $this->getDisplay('doNotShowNameOnDashboard') == 1) {
-            $replace['#name#'] = '<br/>';
-            $replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-        }
-
-        if (is_array($parameters)) {
-            foreach ($parameters as $key => $value) {
-                $replace['#' . $key . '#'] = $value;
-            }
-        }
-    $background=$this->getBackgroundColor($_version);
-
-  $id=array();
-  $value=array();
-  foreach($this->getCmd() as $cmd){
-    $type_cmd=$cmd->getLogicalId();
-    $id[$type_cmd]=$cmd->getId();
-    $value[$type_cmd]=$cmd->getConfiguration('value');
-  }
-
-        $replace = array(
-            		'#name#' => $this->getName(),
-            		'#avatar#' => $this->getConfiguration('avatar_url'),
-                	'#temp#' => round($value['air_temperature'],1),
-                	'#temp_id#' => $id['air_temperature'],
-                	'#temp_status#' => $value['air_temperature_status'],
-                	'#temp_instruction#' => $value['air_temperature_instruction'],
-                	'#water#' => round($value['soil_moisture'],1),
-                	'#water_id#' => $id['soil_moisture'],
-                	'#water_status#' => $value['soil_moisture_status'],
-                	'#water_instruction#' => $value['soil_moisture_instruction'],
-                	'#fertilizer#' => round($value['fertilizer'],1),
-                	'#fertilizer_id#' => $id['fertilizer'],
-                	'#fertilizer_status#' => $value['fertilizer_status'],
-                	'#fertilizer_instruction#' => $value['fertilizer_instruction'],
-                	'#sun#' => round($value['light'],1),
-                	'#sun_id#' => $id['light'],
-                	'#sun_status#' => $value['light_status'],
-                	'#sun_instruction#' => $value['light_instruction'],
-                	'#id#' => $this->getId(),
-                	'#collectDate#' => $this->getConfiguration('updatetime'),
-                	'#background_color#' => $this->getBackgroundColor(jeedom::versionAlias($_version)),
-                	'#eqLink#' => ($this->hasRight('w')) ? $this->getLinkToConfiguration() : '#',
-            	);
-
-      $parameters = $this->getDisplay('parameters');
-      if (is_array($parameters)) {
-          foreach ($parameters as $key => $value) {
-              $replace['#' . $key . '#'] = $value;
-          }
+    foreach ($this->getCmd('info') as $cmd) {
+      $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
+      $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+      $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+      $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
+      if ($cmd->getIsHistorized() == 1) {
+        $replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
       }
-      $html = template_replace($replace, getTemplate('core', $_version, 'flowerpowerbt', 'flowerpowerbt'));
-      cache::set('flowerpowerbtWidget' . $_version . $this->getId(), $html, 0);
-      return $html;
+    }
+
+
+    $replace['#avatar#'] = $this->getConfiguration('avatar_url');
+
+    $html = template_replace($replace, getTemplate('core', $_version, 'flowerpowerbt', 'flowerpowerbt'));
+    return $html;
   }
 
 }
 
 class flowerpowerbtCmd extends cmd {
   public function execute($_options = null) {
-              return $this->getConfiguration('value');
-              log::add('flowerpowerbt', 'info', 'Commande recue ' . $this->getConfiguration('value'));
-    }
+    return $this->getConfiguration('value');
+    log::add('flowerpowerbt', 'info', 'Commande recue ' . $this->getConfiguration('value'));
+  }
 }

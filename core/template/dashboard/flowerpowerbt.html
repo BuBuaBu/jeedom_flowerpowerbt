@@ -1,13 +1,13 @@
-<div class="eqLogic-widget eqLogic allowResize flowerpowerbt" style="height: #height#;width: #width#;background-color: #background_color#; padding : 0px; #style#" data-eqLogic_id="#id#" data-version="dashboard" >
-    <center><strong><a href="#eqLink#" style="size : 1.3em;"> #name#  </a></strong></center><br />
+<div class="eqLogic-widget eqLogic allowResize" style="height: #height#;width: #width#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
+      <center><a href="#eqLink#" style="font-size : 1.5em;#hideEqLogicName#">#name_display#</a></strong></center><br />
     <div class="row">
     <div class="col-md-6">
         <div class="row">
-            <div class="col-md-4 flower_temp#id#"><center><i class="jeedom-thermo-moyen"></i></center></div><div class="col-md-8 flower_temp#id#"><span class="history cursor cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#temp_id#">#temp# °C<div class="temp_instruction#id#"></div></span></div>
+            <div class="col-md-4 flower_air_temperature#id#"><center><i class="jeedom-thermo-moyen"></i></center></div><div class="col-md-8 flower_air_temperature#id#"><span class="history cursor cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#air_temperature_id#">#air_temperature# °C<div class="air_temperature_instruction#id#"></div></span></div>
         </div><div class="row">
-            <div class="col-md-4 flower_water#id#"><center><i class="fa fa-tint"></i></center></div><div class="col-md-8 flower_water#id#"><span class="history cursor cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#water_id#">#water# %<div class="water_instruction#id#"></div></span></div>
+            <div class="col-md-4 flower_soil_moisture#id#"><center><i class="fa fa-tint"></i></center></div><div class="col-md-8 flower_soil_moisture#id#"><span class="history cursor cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#soil_moisture_id#">#soil_moisture# %<div class="soil_moisture_instruction#id#"></div></span></div>
         </div><div class="row">
-            <div class="col-md-4 flower_sun#id#"><center><i class="fa fa-sun-o"></i></center></div><div class="col-md-8 flower_sun#id#"><span class="history cursor cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#sun_id#">&nbsp;#sun# <div class="sun_instruction#id#"></div></span></div>
+            <div class="col-md-4 flower_light#id#"><center><i class="fa fa-sun-o"></i></center></div><div class="col-md-8 flower_light#id#"><span class="history cursor cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#light_id#">&nbsp;#light# <div class="light_instruction#id#"></div></span></div>
         </div><div class="row">
             <div class="col-md-4 flower_fertilizer#id#"><center><i class="fa fa-flask"></i></center></div><div class="col-md-8 flower_fertilizer#id#"><span class="history cursor cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#fertilizer_id#">#fertilizer#<div class="fertilizer_instruction#id#"></div></span></div>
         </div>
@@ -17,7 +17,7 @@
 </div>
 <style>
 
-div.flower_temp#id# {
+div.flower_air_temperature#id# {
    	color: white;
    	font-weight: bold;
    	font-size: 1.2em;
@@ -27,23 +27,23 @@ div.flower_fertilizer#id# {
    	font-weight: bold;
    	font-size: 1.2em;
 }
-div.flower_water#id# {
+div.flower_soil_moisture#id# {
    	color: white;
    	font-weight: bold;
    	font-size: 1.2em;
 }
-div.flower_sun#id# {
+div.flower_light#id# {
    	color: white;
    	font-weight: bold;
    	font-size: 1.2em;
 }
-div.temp_instruction#id# {
+div.air_temperature_instruction#id# {
 	font-size: 0.5em;
 }
-div.water_instruction#id# {
+div.soil_moisture_instruction#id# {
 	font-size: 0.5em;
 }
-div.sun_instruction#id# {
+div.light_instruction#id# {
 	font-size: 0.5em;
 }
 div.fertilizer_instruction#id# {
@@ -51,42 +51,42 @@ div.fertilizer_instruction#id# {
 }
 </style>
 <script>
-	if ('#temp_status#' == 'status_warning' || '#temp_status#' == 'status_critical') {
-    	$('div.flower_temp#id#').css('color','red');
-    }else if ('#temp_status#' == 'predicted_action') {
-    	$('div.flower_temp#id#').css('color','yellow');
+	if ('#air_temperature_status#' == 'status_warning' || '#air_temperature_status#' == 'status_critical') {
+    	$('div.flower_air_temperature#id#').css('color','red');
+    }else if ('#air_temperature_status#' == 'predicted_action') {
+    	$('div.flower_air_temperature#id#').css('color','yellow');
     }else{
-    	$('div.temp_instruction#id#').hide();
+    	$('div.air_temperature_instruction#id#').hide();
     }
     if ('#fertilizer_status#' == 'status_warning' || '#fertilizer_status#' == 'status_critical') {
     	$('div.flower_fertilizer#id#').css('color','red');
     }else if ('#fertilizer_status#' == 'predicted_action') {
     	$('div.flower_fertilizer#id#').css('color','yellow');
     }
-    if ('#water_status#' == 'status_warning' || '#water_status#' == 'status_critical') {
-    	$('div.flower_water#id#').css('color','red');
-    }else if ('#water_status#' == 'predicted_action') {
-    	$('div.flower_water#id#').css('color','yellow');
+    if ('#soil_moisture_status#' == 'status_warning' || '#soil_moisture_status#' == 'status_critical') {
+    	$('div.flower_soil_moisture#id#').css('color','red');
+    }else if ('#soil_moisture_status#' == 'predicted_action') {
+    	$('div.flower_soil_moisture#id#').css('color','yellow');
     }
-    if ('#sun_status#' == 'status_warning' || '#sun_status#' == 'status_critical') {
-    	$('div.flower_sun#id#').css('color','red');
-    }else if ('#sun_status#' == 'predicted_action') {
-    	$('div.flower_sun#id#').css('color','yellow');
+    if ('#light_status#' == 'status_warning' || '#light_status#' == 'status_critical') {
+    	$('div.flower_light#id#').css('color','red');
+    }else if ('#light_status#' == 'predicted_action') {
+    	$('div.flower_light#id#').css('color','yellow');
     }
-    if('#temp_instruction#' == "air_temperature_too_high"){
-    	$('div.temp_instruction#id#').replaceWith('<div,class="temp_instruction#id#">Température trop élevée</div>');
-    }else if('#temp_instruction#' == "air_temperature_too_low"){
-    	$('div.temp_instruction#id#').replaceWith('<div class="temp_instruction#id#">Température trop basse</div>');
+    if('#air_temperature_instruction#' == "air_air_temperatureerature_too_high"){
+    	$('div.air_temperature_instruction#id#').replaceWith('<div,class="air_temperature_instruction#id#">Température trop élevée</div>');
+    }else if('#air_temperature_instruction#' == "air_air_temperatureerature_too_low"){
+    	$('div.air_temperature_instruction#id#').replaceWith('<div class="air_temperature_instruction#id#">Température trop basse</div>');
     }
-    if('#water_instruction#' == "soil_moisture_too_high"){
-    	$('div.water_instruction#id#').replaceWith('<div class="water_instruction#id#">Trop d\'eau</div>');
-    }else if('#water_instruction#' == "soil_moisture_too_low"){
-    	$('div.water_instruction#id#').replaceWith('<div class="water_instruction#id#">Pas assez d\'eau</div>');
+    if('#soil_moisture_instruction#' == "soil_moisture_too_high"){
+    	$('div.soil_moisture_instruction#id#').replaceWith('<div class="soil_moisture_instruction#id#">Trop d\'eau</div>');
+    }else if('#soil_moisture_instruction#' == "soil_moisture_too_low"){
+    	$('div.soil_moisture_instruction#id#').replaceWith('<div class="soil_moisture_instruction#id#">Pas assez d\'eau</div>');
     }
-    if('#sun_instruction#' == "light_too_high"){
-    	$('div.sun_instruction#id#').replaceWith('<div class="sun_instruction#id#">Trop de soleil</div>');
-    }else if('#sun_instruction#' == "light_too_low"){
-    	$('div.sun_instruction#id#').replaceWith('<div class="sun_instruction#id#">Pas assez de soleil</div>');
+    if('#light_instruction#' == "light_too_high"){
+    	$('div.light_instruction#id#').replaceWith('<div class="light_instruction#id#">Trop de soleil</div>');
+    }else if('#light_instruction#' == "light_too_low"){
+    	$('div.light_instruction#id#').replaceWith('<div class="light_instruction#id#">Pas assez de soleil</div>');
     }
     if('#fertilizer_instruction#' == "fertilizer_too_high"){
     	$('div.fertilizer_instruction#id#').replaceWith('<div class="fertilizer_instruction#id#">Trop d\'engrais</div>');
