@@ -485,6 +485,7 @@ class flowerpowerbt extends eqLogic {
           if ($flowerpowerbt->getConfiguration('sensor_serial') == $flowerpower['sensor_serial']) {
             $flowerpowerbt->batteryStatus($flowerpower['battery_level']['level_percent']);
             $flowerpowerbt->save();
+            $flowerpowerbt->refreshWidget();
           }
         }
       }
