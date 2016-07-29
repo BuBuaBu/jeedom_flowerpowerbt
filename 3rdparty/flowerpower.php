@@ -34,7 +34,7 @@ class fpParrotAPI
 			    // 1ère utilisation aprés obtention du code
 			    //echo "--refresh token nok--";
 			    $grant_type = 'password';
-			    $postdata = 'grant_type='.$grant_type.'&username='.$this->username.'&password='.$this->password.'&client_id='.$this->client_id.'&client_secret='.$this->client_secret;
+			    $postdata = 'grant_type='.$grant_type.'&username='.urlencode($this->username).'&password='.urlencode($this->password).'&client_id='.$this->client_id.'&client_secret='.$this->client_secret;
 				$fields=5;
 		  	}
 			$ch = curl_init();
