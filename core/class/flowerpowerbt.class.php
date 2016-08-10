@@ -32,6 +32,7 @@ class flowerpowerbt extends eqLogic {
   public static function cronDaily() {
     config::save('refresh_token', '',  'flowerpowerbt');
     flowerpowerbt::getGarden();
+    flowerpowerbt::deamon_stop();
   }
 
   public static function dependancy_info() {
