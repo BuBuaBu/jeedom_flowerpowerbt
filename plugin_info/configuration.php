@@ -64,7 +64,7 @@ if (!isConnect()) {
             <div class="form-group">
               <label class="col-lg-4 control-label">{{Synchro des données avec Parrot}}</label>
               <div class="col-lg-3">
-                <input type="checkbox" class="configKey form-control bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="cloudActive"/>
+                <span><label class="checkbox-inline"><input type="checkbox" class="configKey form-control" data-l1key="cloudActive" checked/>{{Activer}}</label></span>
               </div>
             </div>
 
