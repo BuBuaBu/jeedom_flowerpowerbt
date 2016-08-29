@@ -517,9 +517,7 @@ class flowerpowerbt extends eqLogic {
 
     $replace['#avatar#'] = $this->getConfiguration('avatar_url');
 
-    $html = template_replace($replace, getTemplate('core', $version, 'flowerpowerbt', 'flowerpowerbt'));
-    cache::set('flowerpowerbtWidget' . $_version . $this->getId(), $html, 0);
-    return $html;
+    return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'current', 'flowerpowerbt')));
   }
 
 }
