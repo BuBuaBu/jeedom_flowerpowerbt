@@ -68,26 +68,19 @@ if (!isConnect()) {
               </div>
             </div>
 
-            <?php
-
-            $cmd = 'sudo hciconfig | grep hci | wc -l';
-            exec($cmd, $output, $return_var);
-            if (intval($output[0]) > 1 ) {
-              echo '<div class="form-group">
-              <label class="col-lg-4 control-label">Dongle Bluetooth</label>
-              <div class="col-lg-3">
-              <select id="select_port" style="margin-top:5px" class="configKey form-control" data-l1key="dongle">';
-              $i = 0;
-              while ($i < intval($output[0])) {
-                echo '<option value="' . $i . '">{{Dongle ' . $i . '}}</option>';
-                $i++;
-              }
-
-              echo ' </div>
-              </div>';
-            }
-
-            ?>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">{{Port clef bluetooth}}</label>
+              <div class="col-sm-2">
+                <select class="configKey form-control" data-l1key="port">
+                  <option value="none">{{Aucun}}</option>
+                  <?php
+                  foreach (jeedom::getBluetoothMapping() as $name => $value) {
+                    echo '<option value="' . $name . '">' . $name . ' (' . $value . ')</option>';
+                  }
+                  ?>
+                </select>
+              </div>
+            </div>
 
 
 

@@ -81,9 +81,8 @@ class flowerpowerbt extends eqLogic {
     log::add('flowerpowerbt', 'info', 'Lancement du démon flowerpowerbt');
     $sensor_path = realpath(dirname(__FILE__) . '/../../node');
     $cmd = 'nodejs ' . $sensor_path . '/start.js 60 ';
-    if (config::byKey('dongle','flowerpowerbt') != '') {
-      $cmd = 'NOBLE_HCI_DEVICE_ID=' . config::byKey('dongle','flowerpowerbt') . ' ' . $cmd;
-    }
+    $port = str_replace('hci', '', jeedom::getBluetoothMapping(config::byKey('port', 'flowerpowerbt',0)));
+    $cmd = 'NOBLE_HCI_DEVICE_ID=' . $port . ' ' . $cmd;
 
     log::add('flowerpowerbt', 'debug', 'Lancement démon flowerpowerbt : ' . $cmd);
 
