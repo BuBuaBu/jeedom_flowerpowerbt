@@ -512,8 +512,6 @@ class flowerpowerbt extends eqLogic {
         $replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
       }
     }
-
-
     $replace['#avatar#'] = $this->getConfiguration('avatar_url');
 
     return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'current', 'flowerpowerbt')));
