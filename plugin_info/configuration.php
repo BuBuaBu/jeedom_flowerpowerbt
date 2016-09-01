@@ -64,7 +64,7 @@ if (!isConnect()) {
             <div class="form-group">
               <label class="col-lg-4 control-label">{{Synchro des données avec Parrot}}</label>
               <div class="col-lg-3">
-                <span><label class="checkbox-inline"><input type="checkbox" class="configKey form-control" data-l1key="cloudActive" checked/>{{Activer}}</label></span>
+                <span><label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="cloudActive" checked/>{{Activer}}</label></span>
               </div>
             </div>
 
@@ -88,34 +88,6 @@ if (!isConnect()) {
         </fieldset>
       </div>
     </form>
-
-
-    <?php
-    if (config::byKey('jeeNetwork::mode') == 'master') {
-      foreach (jeeNetwork::byPlugin('flowerpowerbt') as $jeeNetwork) {
-        ?>
-        <form class="form-horizontal slaveConfig" data-slave_id="<?php echo $jeeNetwork->getId(); ?>">
-          <fieldset>
-            <legend>{{Bluetooth sur l'esclave }} <?php echo $jeeNetwork->getName() ?></legend>
-            <div class="form-group">
-              <label class="col-lg-4 control-label">{{Récupération Bluetooth}}</label>
-              <div class="col-lg-3">
-                <input type="checkbox" class="slaveConfigKey form-control bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="cronActive"/>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-4 control-label">{{Synchro des données avec Parrot}}</label>
-              <div class="col-lg-3">
-                <input type="checkbox" class="slaveConfigKey form-control bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="cloudActive"/>
-              </div>
-            </div>
-
-          </fieldset>
-        </form>
-        <?php
-      }
-    }
-    ?>
 
     <script>
 
