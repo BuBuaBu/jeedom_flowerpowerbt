@@ -70,7 +70,7 @@ sudo npm install --unsafe-perm
 
 sudo chown -R www-data *
 
-sed -i -e 's/apiflowerpower.parrot.com/api-flower-power-pot.parrot.com/g' node_modules/flower-power-api/FlowerPowerCloud.js
+#sed -i -e 's/apiflowerpower.parrot.com/api-flower-power-pot.parrot.com/g' node_modules/flower-power-api/FlowerPowerCloud.js
 
 chmod +x bridge
 
