@@ -10,7 +10,7 @@ class fpParrotAPI
      */
     public function __construct($client_id, $client_secret, $username, $password, $access_token='', $refresh_token='', $expire_time=0)
     {
-    	$this->api_url = 'https://apiflowerpower.parrot.com/';
+    	$this->api_url = 'https://api-flower-power-pot.parrot.com/';
 		$this->client_id = $client_id;
 		$this->client_secret = $client_secret;
 		$this->username = $username;
