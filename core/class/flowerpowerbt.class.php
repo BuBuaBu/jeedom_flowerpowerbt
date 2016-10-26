@@ -354,7 +354,7 @@ class flowerpowerbt extends eqLogic {
     }
 
     $values=$flowerpower->getValues();
-    log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
+    log::add('flowerpowerbt', 'debug', 'Values ' . $values,true);
 
     foreach ($values as $mesure) {
       $module=json_encode($mesure);
