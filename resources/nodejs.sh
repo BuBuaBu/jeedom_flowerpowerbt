@@ -60,7 +60,7 @@ fi
 echo 70 > /tmp/flowerpowerbt_dep
 
 cd ../node/
-#sudo rm -rf node_modules
+sudo rm -rf node_modules
 npm cache clean
 sudo npm cache clean
 
@@ -70,7 +70,8 @@ sudo npm install --unsafe-perm
 
 sudo chown -R www-data *
 
-#sed -i -e 's/apiflowerpower.parrot.com/api-flower-power-pot.parrot.com/g' node_modules/flower-power-api/FlowerPowerCloud.js
+sed -i -e 's/apiflowerpower.parrot.com/api-flower-power-pot.parrot.com/g' node_modules/flower-power-api/FlowerPowerCloud.js
+sed -i -e 's/v2\/authenticate/v1\/authenticate/g' node_modules/flower-power-api/FlowerPowerCloud.js
 
 chmod +x bridge
 
