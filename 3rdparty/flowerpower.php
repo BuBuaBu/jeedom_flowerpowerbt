@@ -73,7 +73,7 @@ class fpParrotAPI
 	public function getValues()
     {
 		$result=$this->query('sensor_data/garden/v1/status');
-		return $result;
+		return $result->locations;
 	}
 }
 

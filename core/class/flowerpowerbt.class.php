@@ -170,7 +170,7 @@ class flowerpowerbt extends eqLogic {
     }
 
     $plants=$flowerpower->getPlants();
-    //log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
+    log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
 
     foreach ($plants as $device) {
       $flowerpowerbt = self::byLogicalId($device->location_identifier, 'flowerpowerbt');
@@ -354,7 +354,7 @@ class flowerpowerbt extends eqLogic {
     }
 
     $values=$flowerpower->getValues();
-    log::add('flowerpowerbt', 'debug', 'Values ' . $values,true);
+    log::add('flowerpowerbt', 'debug', 'Values ' . $values);
 
     foreach ($values as $mesure) {
       $module=json_encode($mesure);
