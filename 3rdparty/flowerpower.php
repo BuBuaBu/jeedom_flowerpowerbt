@@ -70,22 +70,10 @@ class fpParrotAPI
 		return $result->locations;
 	}
 
-  public function getSensors()
-    {
-		$result=$this->query('garden/v2/configuration');
-		return $result->sensors;
-	}
-
 	public function getValues()
     {
 		$result=$this->query('sensor_data/garden/v1/status');
-		return $result->locations;
-	}
-
-  public function getSensorsValues()
-    {
-		$result=$this->query('sensor_data/v6/sample/location');
-		return $result->sensors;
+		return $result;
 	}
 }
 
