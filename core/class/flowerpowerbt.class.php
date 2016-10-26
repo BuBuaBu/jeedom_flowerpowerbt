@@ -180,7 +180,7 @@ class flowerpowerbt extends eqLogic {
           $flowerpowerbt->setEqType_name('flowerpowerbt');
           $flowerpowerbt->setLogicalId($device->location_identifier);
           $flowerpowerbt->setName('Flower - '. $device->location_identifier);
-          $flowerpowerbt->setConfiguration('sensor_serial',$device->sensor_serial);
+          $flowerpowerbt->setConfiguration('sensor_serial',$device->sensor->sensor_identifier);
           $flowerpowerbt->setConfiguration('location_identifier',$device->location_identifier);
           $flowerpowerbt->setConfiguration('battery_type','1x AAA');
           $flowerpowerbt->setIsEnable(true);
@@ -195,6 +195,12 @@ class flowerpowerbt extends eqLogic {
         }
         $flowerpowerbt->setConfiguration('plant_nickname',$device->plant_nickname);
         $flowerpowerbt->setConfiguration('avatar_url',$avatar_url);
+        if ($device->sensor->color == '6') {
+          $color = 'vert';
+        } else {
+          $color = $device->sensor->color;
+        }
+        $flowerpowerbt->setConfiguration('color',$color);
         $flowerpowerbt->save();
 
         $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'air_temperature');
@@ -331,24 +337,6 @@ class flowerpowerbt extends eqLogic {
         }
       }
 
-      $plants=$flowerpower->getSensors();
-      //log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
-
-      foreach ($plants as $device) {
-        foreach (eqLogic::byType('flowerpowerbt', true) as $flowerpowerbt) {
-          if ($flowerpowerbt->getConfiguration('sensor_serial') == $device->sensor_serial) {
-            $flowerpowerbt->setConfiguration('nickname',$device->nickname);
-            if ($device->color == '6') {
-              $color = 'vert';
-            } else {
-              $color = $device->color;
-            }
-            $flowerpowerbt->setConfiguration('color',$color);
-            $flowerpowerbt->save();
-          }
-        }
-      }
-
     }
 
   }
@@ -372,9 +360,6 @@ class flowerpowerbt extends eqLogic {
 
       $values=$flowerpower->getValues();
       //log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
-
-      $sensors=$flowerpower->getSensorsValues();
-      //log::add('flowerpowerbt', 'debug', 'SensorValues ' . print_r($sensors,true));
 
       foreach ($values as $mesure) {
         $module=json_encode($mesure);
@@ -475,19 +460,10 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setConfiguration('value', $flowerpower['light']['instruction_key']);
         $cmdlogic->save();
         $cmdlogic->event($flowerpower['light']['instruction_key']);
+        $flowerpowerbt->batteryStatus($flowerpower['battery']['gauge_values']['current_value']);
+        $flowerpowerbt->save();
+        $flowerpowerbt->refreshWidget();
 
-      }
-
-      foreach ($sensors as $mesure) {
-        $module=json_encode($mesure);
-        $flowerpower=json_decode($module, true);
-        foreach (eqLogic::byType('flowerpowerbt', true) as $flowerpowerbt) {
-          if ($flowerpowerbt->getConfiguration('sensor_serial') == $flowerpower['sensor_serial']) {
-            $flowerpowerbt->batteryStatus($flowerpower['battery_level']['level_percent']);
-            $flowerpowerbt->save();
-            $flowerpowerbt->refreshWidget();
-          }
-        }
       }
 
     }

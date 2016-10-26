@@ -77,25 +77,25 @@ class fpParrotAPI
 
 	public function getPlants()
     {
-		$result=$this->query('sensor_data/v3/sync');
+		$result=$this->query('garden/v2/configuration');
 		return $result->locations;
 	}
 
   public function getSensors()
     {
-		$result=$this->query('sensor_data/v3/sync');
+		$result=$this->query('garden/v2/configuration');
 		return $result->sensors;
 	}
 
 	public function getValues()
     {
-		$result=$this->query('sensor_data/v4/garden_locations_status');
+		$result=$this->query('sensor_data/garden/v1/status');
 		return $result->locations;
 	}
 
   public function getSensorsValues()
     {
-		$result=$this->query('sensor_data/v4/garden_locations_status');
+		$result=$this->query('sensor_data/v6/sample/location');
 		return $result->sensors;
 	}
 }
