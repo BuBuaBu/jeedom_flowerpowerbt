@@ -12,9 +12,7 @@ Il vous faut :
 
 - votre clef API
 
-Pour obtenir la clef API direction cette page : https://www.jeedom.com/doc/documentation/plugins/flowerPower/fr_FR/flowerPower
-
-Le plugin est installable sur Jeedom maître et esclave.
+Pour obtenir la clef API direction cette page : https://api-flower-power-pot.parrot.com/api_access/signup
 
 Sur un Jeedom où il est activé, toutes les heures il récupère les infos de Parrot.
 

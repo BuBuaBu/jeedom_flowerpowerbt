@@ -1,5 +1,0 @@
-==== Nodejs
-
-Un script Nodejs est installé et activé pendant l'installation
-
-Il nécessite les droits sudo pour l'installation et l'utilisation (accès à la clef Bluetooth)

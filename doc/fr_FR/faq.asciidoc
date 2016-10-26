@@ -9,3 +9,15 @@ Non, ce plugin utilise la connexion bluetooth vers les Flower Power. Vous pouvez
 --
 Oui, mais ce n'est pas le plugin qui fera l'éxécution distante. Dans ce cas, il faut mettre en place un cron par exemple sur le déporté pour éxécuter le nodejs.
 --
+
+[panel,danger]
+.Mon Flower Power n'apparait pas ?
+--
+Vous devez enregistrer votre Flower via l'application Parrot avant tout pour l'initialiser
+--
+
+[panel,danger]
+.Mes données ne se mettent pas à jour ?
+--
+Vérifier le log du service, si vous ne voyer pas de lignes "getsamples" dans la connexion régulière, vérifier que votre clef Bluetooth n'est pas utilisé pour autre chose
+--
