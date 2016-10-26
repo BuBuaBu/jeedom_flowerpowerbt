@@ -42,6 +42,7 @@ class fpParrotAPI
 			// on sauvegarde l'access_token et le refresh_token pour les authentifications suivantes
 			if (isset($params->access_token)) {
 				$this->access_token=$params->access_token;
+				$this->refresh_token=$params->refresh_token;
 				$this->expire_time=time()+$params->expires_in;
 			}else if ($this->access_token == '') {
 				die("Erreur lors de l'authentification");
