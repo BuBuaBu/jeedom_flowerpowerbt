@@ -13,7 +13,7 @@
     "async": "^1.5.1",
     "cli-color": "^1.1.0",
     "figures": "^1.4.0",
-    "flower-power-api": "^1.4.0",
+    "flower-power-api": "git+https://github.com/Parrot-Developers/node-flower-power-cloud.git",
     "flower-power-ble": "^0.5.0",
     "nedb": "^1.2.1"
   },
