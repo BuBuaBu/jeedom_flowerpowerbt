@@ -72,6 +72,8 @@ cd ../
 sudo rm -rf node_modules
 npm install
 
+sudo chown -R www-data
+
 rm /tmp/flowerpowerbt_dep
 
 echo "Fin de l'installation"
