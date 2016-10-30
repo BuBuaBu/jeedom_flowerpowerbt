@@ -116,7 +116,7 @@ class flowerpowerbt extends eqLogic {
       if (strpos($device->avatar_url,'http') === false) {
         $module=json_encode($device);
         $sensor=json_decode($module, true);
-        $avatar_url = $sensor['images'][0]['url'];
+        $avatar_url = $sensor['pictures'][0]['url'];
       } else {
         $avatar_url = $device->avatar_url;
       }
