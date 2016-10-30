@@ -98,7 +98,7 @@ class flowerpowerbt extends eqLogic {
     }
 
     $plants=$flowerpower->getPlants();
-    log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
+    //log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
 
     foreach ($plants as $device) {
       $flowerpowerbt = self::byLogicalId($device->location_identifier, 'flowerpowerbt');
@@ -282,7 +282,7 @@ class flowerpowerbt extends eqLogic {
     }
 
     $values=$flowerpower->getValues();
-    log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
+    //log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
 
     foreach ($values as $mesure) {
       $module=json_encode($mesure);
@@ -317,15 +317,15 @@ class flowerpowerbt extends eqLogic {
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture');
       $cmdlogic->setConfiguration('value', round($flowerpower['soil_moisture']['gauge_values']['current_value'],2));
       $cmdlogic->save();
-      $cmdlogic->event(round($flowerpower['soil_moisture']['gauge_values']['current_value'],2));
+      $cmdlogic->event(round($flowerpower['watering']['soil_moisture']['gauge_values']['current_value'],2));
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture_status');
       $cmdlogic->setConfiguration('value', $flowerpower['soil_moisture']['status_key']);
-      if ($flowerpower['soil_moisture']['status_key'] != 'status_ok') {
+      if ($flowerpower['watering']['soil_moisture']['status_key'] != 'status_ok') {
         if ($cmdlogic->getConfiguration('alert') == '0' && $alert != '') {
           $cmdlogic->setConfiguration('alert', '1');
           $cmdalerte = cmd::byId($alert);
           $options['title'] = "Alerte Flower Power";
-          $options['message'] = $flowerpower['soil_moisture']['instruction_key'];
+          $options['message'] = $flowerpower['watering']['soil_moisture']['instruction_key'];
           $cmdalerte->execCmd($options);
         }
       } else {
