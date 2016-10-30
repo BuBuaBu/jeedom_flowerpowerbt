@@ -128,12 +128,6 @@ $eqLogics = eqLogic::byType('flowerpowerbt');
               <div class="col-sm-3">
                 <span class="eqLogicAttr" data-l1key="configuration" data-l2key="sensor_serial"></span>
               </div>
-
-              <label class="col-sm-3 control-label">{{Dernière Collecte}}</label>
-              <div class="col-sm-3">
-                <span class="eqLogicAttr" data-l1key="configuration" data-l2key="updatetime"></span>
-              </div>
-
             </div>
 
             <div class="form-group">
@@ -161,6 +155,13 @@ $eqLogics = eqLogic::byType('flowerpowerbt');
               <label class="col-sm-3 control-label">{{Batterie}}</label>
               <div class="col-sm-3">
                 <span class="eqLogicAttr" data-l1key="configuration" data-l2key="batteryStatus"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">{{Dernière Collecte}}</label>
+              <div class="col-sm-3">
+                <span class="eqLogicAttr" data-l1key="configuration" data-l2key="updatetime"></span>
               </div>
             </div>
 

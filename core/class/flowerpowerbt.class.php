@@ -107,10 +107,10 @@ class flowerpowerbt extends eqLogic {
         $flowerpowerbt->setEqType_name('flowerpowerbt');
         $flowerpowerbt->setLogicalId($device->location_identifier);
         $flowerpowerbt->setName('Flower - '. $device->location_identifier);
-        $flowerpowerbt->setConfiguration('sensor_serial',$device->sensor->sensor_identifier);
+        $flowerpowerbt->setConfiguration('sensor_serial',$device->sensor->sensor_serial);
+        $flowerpowerbt->setConfiguration('nickname',$device->sensor->nickname);
         $flowerpowerbt->setConfiguration('location_identifier',$device->location_identifier);
         $flowerpowerbt->setConfiguration('battery_type','1x AAA');
-        $flowerpowerbt->setIsEnable(true);
         $flowerpowerbt->save();
       }
       if (strpos($device->avatar_url,'http') === false) {
@@ -384,6 +384,7 @@ class flowerpowerbt extends eqLogic {
       $cmdlogic->save();
       $cmdlogic->event($flowerpower['light']['instruction_key']);
       $flowerpowerbt->batteryStatus($flowerpower['battery']['gauge_values']['current_value']);
+      $flowerpowerbt->setConfiguration('batteryStatus',$flowerpower['battery']['gauge_values']['current_value']);
       $flowerpowerbt->save();
       $flowerpowerbt->refreshWidget();
     }
