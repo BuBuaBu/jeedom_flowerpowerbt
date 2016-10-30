@@ -54,6 +54,10 @@ class flowerpowerbt extends eqLogic {
 
   public static function scanFlower() {
     if (config::byKey('cloudActive', 'flowerpowerbt') == '1') {
+      $dependancy_info = self::dependancy_info();
+      if ($dependancy_info['state'] != 'ok') {
+        throw new Exception(__('Dépendances non installées', __FILE__));
+      }
       $sensor_path = realpath(dirname(__FILE__) . '/../../node');
       $port = str_replace('hci', '', jeedom::getBluetoothMapping(config::byKey('port', 'flowerpowerbt',0)));
       $cmd = 'cd ' . $sensor_path . ' && sudo NOBLE_HCI_DEVICE_ID=' . $port . ' nodejs start.js';
