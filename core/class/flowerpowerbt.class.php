@@ -124,6 +124,8 @@ class flowerpowerbt extends eqLogic {
       $flowerpowerbt->setConfiguration('avatar_url',$avatar_url);
       if ($device->sensor->color == '6') {
         $color = 'vert';
+      } else if ($device->sensor->color == '4') {
+        $color = 'marron';
       } else {
         $color = $device->sensor->color;
       }
