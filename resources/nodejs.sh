@@ -60,19 +60,19 @@ fi
 echo 70 > /tmp/flowerpowerbt_dep
 cd ../node/node-flower-power/
 sudo rm -rf node_modules
-npm install
+sudo npm install
 
 echo 80 > /tmp/flowerpowerbt_dep
 cd ../node-flower-power-cloud/
 sudo rm -rf node_modules
-npm install
+sudo npm install
 
 echo 90 > /tmp/flowerpowerbt_dep
 cd ../
 sudo rm -rf node_modules
-npm install
+sudo npm install
 
-sudo chown -R www-data
+sudo chown -R www-data *
 
 rm /tmp/flowerpowerbt_dep
 
