@@ -99,9 +99,10 @@ class flowerpowerbt extends eqLogic {
     }
 
     $plants=$flowerpower->getPlants();
-    //log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
+    log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
 
     foreach ($plants as $device) {
+      log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($device,true));
       $flowerpowerbt = self::byLogicalId($device->location_identifier, 'flowerpowerbt');
       if (!is_object($flowerpowerbt)) {
         $flowerpowerbt = new flowerpowerbt();
@@ -287,9 +288,10 @@ class flowerpowerbt extends eqLogic {
     }
 
     $values=$flowerpower->getValues();
-    //log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
+    log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
 
     foreach ($values as $mesure) {
+      log::add('flowerpowerbt', 'debug', 'Values ' . print_r($mesure,true));
       $module=json_encode($mesure);
       $flowerpower=json_decode($module, true);
       $flowerpowerbt = self::byLogicalId($flowerpower['location_identifier'], 'flowerpowerbt');
