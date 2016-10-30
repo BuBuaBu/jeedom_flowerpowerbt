@@ -22,7 +22,7 @@ class flowerpowerbt extends eqLogic {
   public static $_widgetPossibility = array('custom' => true);
 
   public static function cronHourly() {
-    log::add('flowerpowerbt', 'debug', 'Récupération valeurs');
+    log::add('flowerpowerbt', 'debug', 'cronHourly');
     flowerpowerbt::getGarden();
     flowerpowerbt::getFlower();
     flowerpowerbt::scanFlower();
@@ -83,6 +83,7 @@ class flowerpowerbt extends eqLogic {
   }
 
   public static function getGarden() {
+    log::add('flowerpowerbt', 'debug', 'Récupération garden');
     $clientID = config::byKey('clientID','flowerpowerbt');
     $clientSecret = config::byKey('clientSecret','flowerpowerbt');
     $userName = config::byKey('userName','flowerpowerbt');
@@ -109,6 +110,7 @@ class flowerpowerbt extends eqLogic {
         $flowerpowerbt->setName('Flower - '. $device->location_identifier);
         $flowerpowerbt->setConfiguration('sensor_serial',$device->sensor->sensor_serial);
         $flowerpowerbt->setConfiguration('nickname',$device->sensor->sensor_identifier);
+        log::add('flowerpowerbt', 'debug', 'Nickname ' . $device->sensor->sensor_identifier);
         $flowerpowerbt->setConfiguration('location_identifier',$device->location_identifier);
         $flowerpowerbt->setConfiguration('battery_type','1x AAA');
         $flowerpowerbt->save();
@@ -269,6 +271,7 @@ class flowerpowerbt extends eqLogic {
 
 
   public static function getFlower() {
+    log::add('flowerpowerbt', 'debug', 'Récupération valeurs');
     $clientID = config::byKey('clientID','flowerpowerbt');
     $clientSecret = config::byKey('clientSecret','flowerpowerbt');
     $userName = config::byKey('userName','flowerpowerbt');
