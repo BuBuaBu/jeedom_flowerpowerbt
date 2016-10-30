@@ -58,17 +58,17 @@ else
 fi
 
 echo 70 > /tmp/flowerpowerbt_dep
-cd ../node/
-sudo rm -rf node_modules
-npm install
-
-echo 80 > /tmp/flowerpowerbt_dep
 cd node-flower-power/
 sudo rm -rf node_modules
 npm install
 
-echo 90 > /tmp/flowerpowerbt_dep
+echo 80 > /tmp/flowerpowerbt_dep
 cd ../node-flower-power-cloud/
+sudo rm -rf node_modules
+npm install
+
+echo 90 > /tmp/flowerpowerbt_dep
+cd ../node/
 sudo rm -rf node_modules
 npm install
 

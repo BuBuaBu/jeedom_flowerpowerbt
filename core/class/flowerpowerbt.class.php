@@ -36,9 +36,8 @@ class flowerpowerbt extends eqLogic {
     $return = array();
     $return['log'] = 'flowerpowerbt_dep';
     $flowerapi = realpath(dirname(__FILE__) . '/../../node/node_modules/');
-    $flowerble = realpath(dirname(__FILE__) . '/../../node/flower-power-cloud/node_modules/');
     $return['progress_file'] = '/tmp/flowerpowerbt_dep';
-    if (is_dir($flowerble) && is_dir($flowerapi)) {
+    if (is_dir($flowerapi)) {
       $return['state'] = 'ok';
     } else {
       $return['state'] = 'nok';
@@ -56,12 +55,10 @@ class flowerpowerbt extends eqLogic {
   public static function scanFlower() {
     if (config::byKey('cloudActive', 'flowerpowerbt') != '1') {
       $sensor_path = realpath(dirname(__FILE__) . '/../../node');
-      $cmd = 'nodejs ' . $sensor_path . '/start.js';
       $port = str_replace('hci', '', jeedom::getBluetoothMapping(config::byKey('port', 'flowerpowerbt',0)));
-      $cmd = 'NOBLE_HCI_DEVICE_ID=' . $port . ' ' . $cmd;
-
+      $cmd = 'cd ' . $sensor_path . ' && sudo NOBLE_HCI_DEVICE_ID=' . $port . ' nodejs start.js';
       log::add('flowerpowerbt', 'debug', 'Lancement sync flowerpowerbt : ' . $cmd);
-      exec('nohup sudo ' . $cmd . ' >> ' . log::getPathToLog('flowerpowerbt_node') . ' 2>&1 &');
+      exec($cmd . ' >> ' . log::getPathToLog('flowerpowerbt_node') . ' 2>&1 &');
    }
   }
 
