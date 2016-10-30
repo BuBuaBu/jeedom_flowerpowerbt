@@ -1,22 +1,19 @@
 var clc = require('cli-color');
 var Bridge = require('./index');
-var figures = require('figures');
 var credentials = require('./credentials');
 
-var valid = clc.green.bold(figures.tick);
-var bad = clc.red.bold(figures.cross);
+var brooklyn = new Bridge(credentials.url);
+delete credentials.url;
 
-var brooklyn = new Bridge();
+var valid = clc.green.bold('✔');
+var bad = clc.red.bold('✘');
 
 var options = {
-	delay: process.argv[2] || 15,
+	type: [],
 	priority: [],
-	filter: function(fp) {
-		return true;
-	}
 };
 
-credentials['auto-refresh'] = true;
+credentials['auto-refresh'] = false;
 brooklyn.loginToApi(credentials, function(err) {
 	if (err) {
 		console.error(err.toString());
@@ -26,11 +23,11 @@ brooklyn.loginToApi(credentials, function(err) {
 
 brooklyn.on('login', function() {
 	console.log(valid, clc.green('Login!'));
-	brooklyn.automatic(options);
+	brooklyn.all('synchronize', options);
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
-	console.log("[" + flowerPower.lastDate.toString().substr(4, 20) + "]:", flowerPower.uuid + ": " + flowerPower.lastProcess);
+	console.log("[" + flowerPower.lastDate.toString().substr(4, 20) + "]:", flowerPower.name + ": " + flowerPower.lastProcess);
 });
 
 brooklyn.on('info', function(info) {
@@ -43,4 +40,8 @@ brooklyn.on('newState', function(state) {
 
 brooklyn.on('error', function(error) {
 	console.log(clc.red("[" + error.date.toString().substr(4, 20) + "]:", error.message));
+});
+
+brooklyn.on('end', function() {
+	process.exit(0);
 });

@@ -5,6 +5,5 @@
 	"author" : "lunarok",
 	"require" : "2.4",
 	"category" : "nature",
-	"hasDependency" : 1,
-  "hasOwnDeamon" : 1
+	"hasDependency" : 1
 }

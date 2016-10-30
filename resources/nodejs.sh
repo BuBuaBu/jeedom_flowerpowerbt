@@ -58,22 +58,19 @@ else
 fi
 
 echo 70 > /tmp/flowerpowerbt_dep
-
 cd ../node/
 sudo rm -rf node_modules
-npm cache clean
-sudo npm cache clean
+npm install
 
 echo 80 > /tmp/flowerpowerbt_dep
-#npm install
-sudo npm install --unsafe-perm
+cd node-flower-power/
+sudo rm -rf node_modules
+npm install
 
-sudo chown -R www-data *
-
-sed -i -e 's/apiflowerpower.parrot.com/api-flower-power-pot.parrot.com/g' node_modules/flower-power-api/FlowerPowerCloud.js
-sed -i -e 's/v2\/authenticate/v1\/authenticate/g' node_modules/flower-power-api/FlowerPowerCloud.js
-
-chmod +x bridge
+echo 90 > /tmp/flowerpowerbt_dep
+cd ../node-flower-power-cloud/
+sudo rm -rf node_modules
+npm install
 
 rm /tmp/flowerpowerbt_dep
 

@@ -15,31 +15,28 @@
 * You should have received a copy of the GNU General Public License
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
-
-/* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 if (!class_exists('fpParrotAPI')) { require_once dirname(__FILE__) . '/../../3rdparty/flowerpower.php'; }
 
 class flowerpowerbt extends eqLogic {
-
   public static $_widgetPossibility = array('custom' => true);
 
   public static function cronHourly() {
-    flowerpowerbt::getFlower();
     log::add('flowerpowerbt', 'debug', 'Récupération valeurs');
+    flowerpowerbt::getFlower();
+    flowerpowerbt::scanFlower();
   }
 
   public static function cronDaily() {
     config::save('refresh_token', '',  'flowerpowerbt');
     flowerpowerbt::getGarden();
-    flowerpowerbt::deamon_stop();
   }
 
   public static function dependancy_info() {
     $return = array();
     $return['log'] = 'flowerpowerbt_dep';
-    $flowerapi = realpath(dirname(__FILE__) . '/../../node/node_modules/flower-power-api');
-    $flowerble = realpath(dirname(__FILE__) . '/../../node/node_modules/flower-power-ble');
+    $flowerapi = realpath(dirname(__FILE__) . '/../../node/node_modules/');
+    $flowerble = realpath(dirname(__FILE__) . '/../../node/flower-power-cloud/node_modules/');
     $return['progress_file'] = '/tmp/flowerpowerbt_dep';
     if (is_dir($flowerble) && is_dir($flowerapi)) {
       $return['state'] = 'ok';
@@ -56,74 +53,16 @@ class flowerpowerbt extends eqLogic {
     flowerpowerbt::doConf();
   }
 
-  public static function deamon_info() {
-    $return = array();
-    $return['log'] = 'flowerpowerbt_node';
-    $return['state'] = 'nok';
-    $pid = trim( shell_exec ('ps ax | grep "flowerpowerbt/node/start.js" | grep -v "grep" | wc -l') );
-    if ($pid != '' && $pid != '0') {
-      $return['state'] = 'ok';
-    }
-    $return['launchable'] = 'ok';
+  public static function scanFlower() {
     if (config::byKey('cloudActive', 'flowerpowerbt') != '1') {
-      $return['launchable'] = 'nok';
-      $return['launchable_message'] = __('Synchro Parrot non active', __FILE__);
-    }
-    return $return;
-  }
+      $sensor_path = realpath(dirname(__FILE__) . '/../../node');
+      $cmd = 'nodejs ' . $sensor_path . '/start.js';
+      $port = str_replace('hci', '', jeedom::getBluetoothMapping(config::byKey('port', 'flowerpowerbt',0)));
+      $cmd = 'NOBLE_HCI_DEVICE_ID=' . $port . ' ' . $cmd;
 
-  public static function deamon_start($_debug = false) {
-    self::deamon_stop();
-    $deamon_info = self::deamon_info();
-    if ($deamon_info['launchable'] != 'ok') {
-      throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
-    }
-    log::add('flowerpowerbt', 'info', 'Lancement du démon flowerpowerbt');
-    $sensor_path = realpath(dirname(__FILE__) . '/../../node');
-    $cmd = 'nodejs ' . $sensor_path . '/start.js 60 ';
-    $port = str_replace('hci', '', jeedom::getBluetoothMapping(config::byKey('port', 'flowerpowerbt',0)));
-    $cmd = 'NOBLE_HCI_DEVICE_ID=' . $port . ' ' . $cmd;
-
-    log::add('flowerpowerbt', 'debug', 'Lancement démon flowerpowerbt : ' . $cmd);
-
-    $result = exec('nohup sudo ' . $cmd . ' >> ' . log::getPathToLog('flowerpowerbt_node') . ' 2>&1 &');
-    if (strpos(strtolower($result), 'error') !== false || strpos(strtolower($result), 'traceback') !== false) {
-      log::add('flowerpowerbt', 'error', $result);
-      return false;
-    }
-
-    $i = 0;
-    while ($i < 30) {
-      $deamon_info = self::deamon_info();
-      if ($deamon_info['state'] == 'ok') {
-        break;
-      }
-      sleep(1);
-      $i++;
-    }
-    if ($i >= 30) {
-      log::add('flowerpowerbt', 'error', 'Impossible de lancer le démon flowerpowerbt, vérifiez le port', 'unableStartDeamon');
-      return false;
-    }
-    message::removeAll('flowerpowerbt', 'unableStartDeamon');
-    log::add('flowerpowerbt', 'info', 'Démon flowerpowerbt lancé');
-    return true;
-  }
-
-  public static function deamon_stop() {
-    exec('kill $(ps aux | grep "flowerpowerbt/node/start.js" | awk \'{print $2}\')');
-    log::add('flowerpowerbt', 'info', 'Arrêt du service flowerpowerbt');
-    $deamon_info = self::deamon_info();
-    if ($deamon_info['state'] == 'ok') {
-      sleep(1);
-      exec('kill -9 $(ps aux | grep "flowerpowerbt/node/start.js" | awk \'{print $2}\')');
-    }
-    $deamon_info = self::deamon_info();
-    if ($deamon_info['state'] == 'ok') {
-      sleep(1);
-      exec('sudo kill -9 $(ps aux | grep "flowerpowerbt/node/start.js" | awk \'{print $2}\')');
-    }
-    config::save('gateway', '0',  'flowerpowerbt');
+      log::add('flowerpowerbt', 'debug', 'Lancement sync flowerpowerbt : ' . $cmd);
+      exec('nohup sudo ' . $cmd . ' >> ' . log::getPathToLog('flowerpowerbt_node') . ' 2>&1 &');
+   }
   }
 
   public static function doConf() {
@@ -137,21 +76,10 @@ class flowerpowerbt extends eqLogic {
       "client_id": "' . $clientID . '",
       "client_secret": "' . $clientSecret. '",
       "username": "' . $userName. '",
-      "password": "' . $passPhrase. '"
+      "password": "' . $passPhrase. '",
+      "url": "https://api-flower-power-pot.parrot.com"
     }';
     file_put_contents($sensor_path, $content);
-    /*$content1 = '{';
-    $content2 = '      	"client_id": "' . $clientID . '",';
-    $content3 = '      	"client_secret": "' . $clientSecret. '",';
-    $content4 = '      	"username": "' . $userName. '",';
-    $content5 = '      	"password": "' . $passPhrase. '"';
-    $content6 = '}';
-    file_put_contents($sensor_path, $content1 . "\n", LOCK_EX);
-    file_put_contents($sensor_path, $content2 . "\n", FILE_APPEND | LOCK_EX);
-    file_put_contents($sensor_path, $content3 . "\n", FILE_APPEND | LOCK_EX);
-    file_put_contents($sensor_path, $content4 . "\n", FILE_APPEND | LOCK_EX);
-    file_put_contents($sensor_path, $content5 . "\n", FILE_APPEND | LOCK_EX);
-    file_put_contents($sensor_path, $content6, FILE_APPEND | LOCK_EX);*/
   }
 
   public static function getGarden() {

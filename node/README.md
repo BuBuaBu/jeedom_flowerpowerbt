@@ -53,18 +53,19 @@ Edit `credentials.json`:
 {
 	"client_id":		"...",
 	"client_secret":	"...",
-	"username":		 	"...",
-	"password":			"..."
+	"username":		 "...",
+	"password":		 "...",
+	"url":				"..." // Url of API cloud
 }
 ```
 And walk on the brigde:
 ```bash
-$ ./bridge display			 : To have a output:
+$ ./bridge display			: To have a output:
 $ ./bridge background		 : To run the program in background
-$ ./bridge restart			 : To restart the program
-$ ./bridge status			 : To show the status
-$ ./bridge stop			     : To stop the program
-$ ./bridge					 : To have help
+$ ./bridge restart			: To restart the program
+$ ./bridge status			: To show if the program is running or not
+$ ./bridge stop			   : To stop the program
+$ ./bridge					: To have help
 ```
 
 ##### How it works
@@ -97,13 +98,13 @@ var credentials = {
 
 bridge.loginToApi(credentials, function(err, res) {
 	if (err) return console.error(err);
-	bridge.all('synchronize');
+	bridge.syncAll();
 	bridge.live('...', 5);
 	bridge.synchronize('...');
 });
 
 bridge.on('newProcess', function(flowerPower) {
-	console.log(flowerPower.uuid, flowerPower.lastProcess);
+	console.log(flowerPower.name, flowerPower.lastProcess);
 });
 bridge.on('info', function(info) {
 	console.log(info.message);
@@ -113,7 +114,7 @@ bridge.on('error', function(error) {
 });
 ```
 
-The bridge is a continual queud. Method like `.all` `.synchronize` or `.live` push back to this queud.
+The bridge is a continual queud. Method like `syncAll` `synchronize` or `live` push back to this queud.
 
 ##### Events
 ```js
@@ -121,107 +122,26 @@ The bridge is a continual queud. Method like `.all` `.synchronize` or `.live` pu
 'info' = {message, date}
 'error' = {message, date}
 'newState' = state
-'newProcess' = {uuid, lastProcess, process, lastDate}
+'newProcess' = {name, lastProcess, process, date}
 ```
 
-## Api
-**Kind**: global class
+##### Api
+```js
+// Login in to the Cloud
+bridge.loginToApi(credentials [, callback]);   // event: 'login'
 
-* [FlowerBridge](#FlowerBridge)
-    * [new FlowerBridge()](#new_FlowerBridge_new)
-    * [.loginToApi(credentials)](#FlowerBridge+loginToApi)
-    * [.getUser(callback)](#FlowerBridge+getUser)
-    * [.automatic(options)](#FlowerBridge+automatic)
-    * [.update(uuid, options)](#FlowerBridge+update)
-    * [.synchronize(uuid)](#FlowerBridge+synchronize)
-    * [.live(uuid, options)](#FlowerBridge+live)
-    * [.all(action, options)](#FlowerBridge+all)
+// Get your garden configuration
+bridge.getUser(callback);
 
-<a name="new_FlowerBridge_new"></a>
-### new FlowerBridge()
-FlowerBridge - Module to build a bridge form BLE/sensors and CLOUD/Parrot
+// Make an automatic syncronization
+var options = {
+	delay: 15,      // loop delay
+	priority: [],   // add a 'name'
+};
 
-<a name="FlowerBridge+loginToApi"></a>
-### flowerBridge.loginToApi(credentials)
-To connect your bridge to the Parrot cloud
-
-**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
-
-| Param | Type | Description |
-| --- | --- | --- |
-| credentials | <code>object</code> | `client_id` `client_secret` `username` `password` |
-
-<a name="FlowerBridge+getUser"></a>
-### flowerBridge.getUser(callback)
-Get your current profil from the cloud
-Get all sensor
-Get user version
-
-**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
-
-| Param | Type | Description |
-| --- | --- | --- |
-| callback | <code>function</code> | The callback **after** getting information form cloud |
-
-<a name="FlowerBridge+automatic"></a>
-### flowerBridge.automatic(options)
-Synchronize periodicly all of your flower powers
-
-**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
-**Default**: <code>options[delay] = 15; // minutes</code>
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>object</code> | `delay` `priority` |
-
-<a name="FlowerBridge+update"></a>
-### flowerBridge.update(uuid, options)
-[Update mode]
-- Synchronize historic samples
-- Update the frimware
-
-**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
-
-| Param | Type | Description |
-| --- | --- | --- |
-| uuid | <code>string</code> | The Uuid of the flower power |
-| options | <code>object</code> | `options[file]` -> Binary file to update the flower power |
-
-<a name="FlowerBridge+synchronize"></a>
-### flowerBridge.synchronize(uuid)
-[Synchronize mode]
-- Synchronize historic samples
-
-**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
-
-| Param | Type | Description |
-| --- | --- | --- |
-| uuid | <code>string</code> | The Uuid of the flower power |
-
-<a name="FlowerBridge+live"></a>
-### flowerBridge.live(uuid, options)
-[Live mode]
-- Show every second each data of a sensor
-
-**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
-**Default**: <code>options[delay] = 5</code>
-
-| Param | Type | Description |
-| --- | --- | --- |
-| uuid | <code>string</code> | The Uuid of the flower power |
-| options | <code>json</code> | `options[delay]` -> Delay of the live mode |
-
-<a name="FlowerBridge+all"></a>
-### flowerBridge.all(action, options)
-Apply then `action` for **all** flower powers of your garden.
-* `options[delay]` -> Do an action every `delay` minutes.
-* `options[priority]` -> `array` of uuid: Do this action for these flower power **befor** the normal process.
-
-**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
-
-| Param | Type | Description |
-| --- | --- | --- |
-| action | <code>string</code> | The name of the function to apply. |
-| options | <code>object</code> | Options to deal with all sensors. |
-
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
+brigde.automatic([options]); // Synchronize all flower power in your garden every 15 minutes by default
+bridge.syncAll([options]); // Synchronize all flower power in your garden
+bridge.synchronize(NAME); // Synchronize a flower power
+bridge.live(NAME [, delay]); // Live for a flower power every 10 seconds by default
+bridge.update(NAME, file); // Update the firmware [features: no file param = last firmware]
+```

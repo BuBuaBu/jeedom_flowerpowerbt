@@ -4,9 +4,10 @@ var request = require('request');
 var qs = require('querystring');
 var schedule = require('node-schedule');
 
-const DEBUG = false;
+const DEBUG = true;
 
-function FlowerPowerCloud() {
+function FlowerPowerCloud(url) {
+	this.url = url;
 	this._token = {};
 	this._isLogged = false;
 	this.credentials = {};
@@ -14,27 +15,18 @@ function FlowerPowerCloud() {
 
 	var self = this;
 	var api = {
-		// Profile
-		'getProfile': {method: 'GET/json', path: '/user/v4/profile', auth: true},
-		'getUserVersions': {method: 'GET/json', path: '/user/v1/versions', auth: true},
-		'verify': {method: 'GET/json', path: '/user/v1/verify', auth: true},
-
-		// Garden
-		'getSyncGarden': {method: 'GET/json', path: '/sensor_data/v4/garden_locations_status', auth: true},
-		'sendSamples': {method: 'PUT/json', path: '/sensor_data/v5/sample', auth: true},
-		'getSyncData': {method: 'GET/json', path: '/garden/v2/configuration', auth: true},
-		'getLocationSamples': {method: 'GET/json', path: '/sensor_data/v6/sample/location/:location_identifier', auth: true},
-		'getStatistics': {method: 'GET/json', path: '/sensor_data/v2/statistics/:location_identifier', auth: true},
-
+		'getProfile': {method: 'GET/urlencoded', path: "/user/v4/profile", auth: true},
+		'getGardenConfig': {method: 'GET/urlencoded', path: "/garden/v2/configuration", auth: true},
+		'getGardenStatus': {method: 'GET/urlencoded', path: "/garden/v1/status", auth: true},
+		'sendGardenStatus': {method: 'PUT/json', path: "/garden/v1/status", auth: true},
+		'sendSamples': {method: 'PUT/json', path: '/sensor_data/v8/sample', auth: true}
 	};
 
 	for (var item in api) {
 		self.makeReqFunction(item, api[item]);
 	}
 	return this;
-};
-
-FlowerPowerCloud.url = 'https://api-flower-power-pot.parrot.com';
+}
 
 FlowerPowerCloud.prototype.makeReqFunction = function(name, req) {
 	var self = this;
@@ -51,20 +43,20 @@ FlowerPowerCloud.prototype.makeHeader = function(req, data) {
 
 	switch (type) {
 		case 'urlencoded':
-		options.body = qs.stringify(data);
-		options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-		break;
+			options.body = qs.stringify(data);
+			options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			break;
 		case 'json':
-		options.body = JSON.stringify(data);
-		options.headers['Content-Type'] = 'application/json';
-		break;
+			options.body = JSON.stringify(data);
+			options.headers['Content-Type'] = 'application/json';
+			break;
 		default:
-		options.body = data;
-		options.headers['Content-Type'] = 'text/plain';
-		break;
+			options.body = data;
+			options.headers['Content-Type'] = 'text/plain';
+			break;
 	}
 
-	options.url = FlowerPowerCloud.url + req.path;
+	options.url = this.url + req.path;
 	options.method = verb;
 	options.headers['Authorization'] = (req.auth) ? "Bearer " + this._token.access_token : "";
 
@@ -99,9 +91,6 @@ FlowerPowerCloud.prototype.invoke = function(req, data, callback) {
 		callback = data;
 		data = null;
 	}
-	if (data && typeof data !== 'object') {
-		return callback(new Error('Data is not a json'));
-	}
 	req = self.makeUrl(req, data);
 	options = self.makeHeader(req, data);
 
@@ -119,27 +108,14 @@ FlowerPowerCloud.prototype.invoke = function(req, data, callback) {
 		else if (callback) {
 			var results = body;
 
-			if (results.sensors) {
-				var sensors = {};
-				for (var sensor of results.sensors) {
-					if (sensor.sensor_serial) {
-						sensors[sensor.sensor_serial] = sensor;
-					}
-				}
-				results.sensors = sensors;
-			}
 			if (results.locations) {
 				var locations = {};
 				for (var location of results.locations) {
-					if (location.sensor_serial) {
-						locations[location.sensor_serial] = location;
+					if (location.sensor && location.sensor.sensor_identifier) {
+						locations[location.sensor.sensor_identifier] = location;
 					}
 				}
 				results.locations = locations;
-			}
-			if (results.sensors && results.locations) {
-				results.sensors = self.concatJson(results.sensors, results.locations);
-				delete results.locations;
 			}
 			return callback(null, results);
 		}
@@ -147,8 +123,23 @@ FlowerPowerCloud.prototype.invoke = function(req, data, callback) {
 	});
 };
 
+FlowerPowerCloud.prototype.concatJson = function(json1, json2) {
+	var dest = json1;
+	var self = this;
+
+	for (var key in json2) {
+		if (typeof json1[key] == 'object' && typeof json2[key] == 'object') {
+			dest[key] = self.concatJson(json1[key], json2[key]);
+		}
+		else {
+			dest[key] = json2[key];
+		}
+	}
+	return dest;
+};
+
 FlowerPowerCloud.prototype.login = function(data, callback) {
-	var req = {method: 'POST/urlencoded', path: '/user/v1/authenticate'};
+	var req = {method: 'POST/urlencoded', path: '/user/v3/authenticate'};
 	var self = this;
 
 	if (typeof data['auto-refresh'] != 'undefined') {
@@ -157,6 +148,7 @@ FlowerPowerCloud.prototype.login = function(data, callback) {
 	}
 	self.credentials = data;
 	data['grant_type'] = 'password';
+	data['app_identifier'] = '';
 	self.invoke(req, data, function(err, res) {
 		if (err) callback(err);
 		else self.setToken(res, callback);
@@ -182,7 +174,7 @@ FlowerPowerCloud.prototype.refresh = function(token) {
 	var self = this;
 
 	var data = {
-		'client_id':	self.credentials['client_id'],
+		'client_id': self.credentials['client_id'],
 		'client_secret': self.credentials['client_secret'],
 		'refresh_token': token.refresh_token,
 		'grant_type': 'refresh_token'
@@ -197,52 +189,17 @@ FlowerPowerCloud.prototype.refresh = function(token) {
 FlowerPowerCloud.prototype.getGarden = function(callback) {
 	var self = this;
 
-	async.parallel({
-		syncGarden: function(callback) {
-			self.getSyncGarden(callback);
+	async.series({
+		configuration: function(callback) {
+			self.getGardenConfig(callback);
 		},
-		syncData: function(callback) {
-			self.getSyncData(callback);
+		status: function(callback) {
+			self.getGardenStatus(callback);
 		}
-	}, function(err, res) {
-		if (err) callback(err);
-		else callback(null, self.concatJson(res.syncData, res.syncGarden));
+	}, function(error, results) {
+		if (!error) callback(null, self.concatJson(results.status, results.configuration));
+		else callback(error);
 	});
-};
-
-FlowerPowerCloud.prototype.concatJson = function(json1, json2) {
-	var dest = json1;
-	var self = this;
-
-	for (var key in json2) {
-		if (typeof json1[key] == 'object' && typeof json2[key] == 'object') {
-			dest[key] = self.concatJson(json1[key], json2[key]);
-		}
-		else {
-			dest[key] = json2[key];
-		}
-	}
-	return dest;
 }
-
-// 'url1': {
-// 	'getProfile',
-// 	'getUserVersions',
-// 	'getSyncGarden',
-// 	'sendSamples',
-// 	'getSyncData',
-// 	'getLocationSamples',
-// 	'getStatistics',
-// },
-// 'url2': {
-// 	'searchName',
-// 	'suggest',
-// 	'suggestLocation'
-// },
-// 'url3': {
-// 	'infoPlant',
-// 	'plantdataVersion',
-// 	'listPopularityPlant',
-// }
 
 module.exports = FlowerPowerCloud;

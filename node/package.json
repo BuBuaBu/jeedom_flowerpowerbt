@@ -1,6 +1,6 @@
 {
   "name": "node-flower-bridge",
-  "version": "1.8.6",
+  "version": "1.5.2",
   "description": "Flower Bridge",
   "main": "lib/FlowerPower.js",
   "scripts": {
@@ -11,11 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "async": "^1.5.1",
+    "buffer-equal": "^1.0.0",
+    "chance": "^0.8.0",
     "cli-color": "^1.1.0",
-    "figures": "^1.4.0",
-    "flower-power-api": "git+https://github.com/Parrot-Developers/node-flower-power-cloud.git",
-    "flower-power-ble": "^0.5.0",
-    "nedb": "^1.2.1"
+    "deasync": "^0.1.4",
+    "nedb": "^1.2.1",
+    "promise": "^7.1.1"
   },
   "repository": {
     "type": "git",

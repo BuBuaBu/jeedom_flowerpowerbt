@@ -22,7 +22,7 @@ $ npm install flower-power-api
 ### Load
 ```js
 var FlowerPowerApi = require('flower-power-api');
-var api = new FlowerPowerApi();
+var api = new FlowerPowerApi('https://...');
 ```
 
 ### Login to cloud

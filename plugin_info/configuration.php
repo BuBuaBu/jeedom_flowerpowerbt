@@ -82,7 +82,12 @@ if (!isConnect()) {
               </div>
             </div>
 
-
+            <div class="form-group">
+              <label class="col-lg-4 control-label"></label>
+              <div class="col-lg-4">
+                La clef peut être demandée sur cette page : <a href="https://api-flower-power-pot.parrot.com/api_access/signup">API Parrot Flower et Pots</a>
+              </div>
+            </div>
 
           </div>
         </fieldset>
