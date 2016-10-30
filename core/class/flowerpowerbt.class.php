@@ -332,11 +332,11 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setConfiguration('alert', '0');
       }
       $cmdlogic->save();
-      $cmdlogic->event($flowerpower['soil_moisture']['status_key']);
+      $cmdlogic->event($flowerpower['watering']['soil_moisture']['status_key']);
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'soil_moisture_instruction');
-      $cmdlogic->setConfiguration('value', $flowerpower['soil_moisture']['instruction_key']);
+      $cmdlogic->setConfiguration('value', $flowerpower['watering']['soil_moisture']['instruction_key']);
       $cmdlogic->save();
-      $cmdlogic->event($flowerpower['soil_moisture']['instruction_key']);
+      $cmdlogic->event($flowerpower['watering']['soil_moisture']['instruction_key']);
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'fertilizer');
       $cmdlogic->setConfiguration('value', round($flowerpower['fertilizer']['gauge_values']['current_value'],2));
       $cmdlogic->save();
