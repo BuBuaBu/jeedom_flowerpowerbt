@@ -42,6 +42,7 @@ class flowerpowerbt extends eqLogic {
     } else {
       $return['state'] = 'nok';
     }
+    $return['launchable'] = 'ok';
     return $return;
   }
 
