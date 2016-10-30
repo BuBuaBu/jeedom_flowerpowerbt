@@ -108,7 +108,7 @@ class flowerpowerbt extends eqLogic {
         $flowerpowerbt->setLogicalId($device->location_identifier);
         $flowerpowerbt->setName('Flower - '. $device->location_identifier);
         $flowerpowerbt->setConfiguration('sensor_serial',$device->sensor->sensor_serial);
-        $flowerpowerbt->setConfiguration('nickname',$device->sensor->nickname);
+        $flowerpowerbt->setConfiguration('nickname',$device->sensor->sensor_identifier);
         $flowerpowerbt->setConfiguration('location_identifier',$device->location_identifier);
         $flowerpowerbt->setConfiguration('battery_type','1x AAA');
         $flowerpowerbt->save();
