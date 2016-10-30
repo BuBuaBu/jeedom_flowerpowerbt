@@ -23,13 +23,13 @@ class flowerpowerbt extends eqLogic {
 
   public static function cronHourly() {
     log::add('flowerpowerbt', 'debug', 'Récupération valeurs');
+    flowerpowerbt::getGarden();
     flowerpowerbt::getFlower();
     flowerpowerbt::scanFlower();
   }
 
   public static function cronDaily() {
     config::save('refresh_token', '',  'flowerpowerbt');
-    flowerpowerbt::getGarden();
   }
 
   public static function dependancy_info() {
@@ -77,6 +77,9 @@ class flowerpowerbt extends eqLogic {
       "url": "https://api-flower-power-pot.parrot.com"
     }';
     file_put_contents($sensor_path, $content);
+    flowerpowerbt::getGarden();
+    flowerpowerbt::getFlower();
+    flowerpowerbt::scanFlower();
   }
 
   public static function getGarden() {
