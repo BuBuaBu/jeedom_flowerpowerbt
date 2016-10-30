@@ -99,10 +99,10 @@ class flowerpowerbt extends eqLogic {
     }
 
     $plants=$flowerpower->getPlants();
-    log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
+    //log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($plants,true));
 
     foreach ($plants as $device) {
-      log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($device,true));
+      //log::add('flowerpowerbt', 'debug', 'Garden ' . print_r($device,true));
       $flowerpowerbt = self::byLogicalId($device->location_identifier, 'flowerpowerbt');
       if (!is_object($flowerpowerbt)) {
         $flowerpowerbt = new flowerpowerbt();
@@ -111,10 +111,19 @@ class flowerpowerbt extends eqLogic {
         $flowerpowerbt->setName('Flower - '. $device->location_identifier);
         $flowerpowerbt->setConfiguration('sensor_serial',$device->sensor->sensor_serial);
         $flowerpowerbt->setConfiguration('nickname',$device->sensor->sensor_identifier);
-        log::add('flowerpowerbt', 'debug', 'Nickname ' . $device->sensor->sensor_identifier);
         $flowerpowerbt->setConfiguration('location_identifier',$device->location_identifier);
+        $flowerpowerbt->setConfiguration('plant_nickname',$device->plant_nickname);
         $flowerpowerbt->setConfiguration('battery_type','1x AAA');
         $flowerpowerbt->save();
+      } else {
+        if ($device->sensor->nickname != $flowerpowerbt->getConfiguration('nickname')) {
+          $flowerpowerbt->setConfiguration('nickname',$device->sensor->nickname);
+          $flowerpowerbt->save();
+        }
+        if ($device->sensor->sensor_identifier != $flowerpowerbt->getConfiguration('plant_nickname')) {
+          $flowerpowerbt->setConfiguration('plant_nickname',$device->plant_nickname);
+          $flowerpowerbt->save();
+        }
       }
       if (strpos($device->avatar_url,'http') === false) {
         $module=json_encode($device);
@@ -123,8 +132,10 @@ class flowerpowerbt extends eqLogic {
       } else {
         $avatar_url = $device->avatar_url;
       }
-      $flowerpowerbt->setConfiguration('plant_nickname',$device->plant_nickname);
-      $flowerpowerbt->setConfiguration('avatar_url',$avatar_url);
+      if ($avatar_url != $flowerpowerbt->getConfiguration('avatar_url')) {
+        $flowerpowerbt->setConfiguration('avatar_url',$avatar_url);
+        $flowerpowerbt->save();
+      }
       if ($device->sensor->color == '6') {
         $color = 'vert';
       } else if ($device->sensor->color == '4') {
@@ -132,8 +143,10 @@ class flowerpowerbt extends eqLogic {
       } else {
         $color = $device->sensor->color;
       }
-      $flowerpowerbt->setConfiguration('color',$color);
-      $flowerpowerbt->save();
+      if ($color != $flowerpowerbt->getConfiguration('color')) {
+        $flowerpowerbt->setConfiguration('color',$color);
+        $flowerpowerbt->save();
+      }
 
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'air_temperature');
       if (!is_object($cmdlogic)) {
@@ -154,7 +167,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Température de l\'Air - Statut');
         $cmdlogic->setLogicalId('air_temperature_status');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'air_temperature_instruction');
@@ -165,7 +178,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Température de l\'Air - Instruction');
         $cmdlogic->setLogicalId('air_temperature_instruction');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'soil_moisture');
@@ -187,7 +200,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Humidité du Sol - Statut');
         $cmdlogic->setLogicalId('soil_moisture_status');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'soil_moisture_instruction');
@@ -198,7 +211,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Humidité du Sol - Instruction');
         $cmdlogic->setLogicalId('soil_moisture_instruction');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'fertilizer');
@@ -220,7 +233,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Fertilisant - Statut');
         $cmdlogic->setLogicalId('fertilizer_status');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'fertilizer_instruction');
@@ -231,7 +244,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Fertilisant - Instruction');
         $cmdlogic->setLogicalId('fertilizer_instruction');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'light');
@@ -253,7 +266,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Luminosité - Statut');
         $cmdlogic->setLogicalId('light_status');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'light_instruction');
@@ -264,7 +277,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setType('info');
         $cmdlogic->setName('Luminosité - Instruction');
         $cmdlogic->setLogicalId('light_instruction');
-        $cmdlogic->setSubType('other');
+        $cmdlogic->setSubType('string');
         $cmdlogic->save();
       }
     }
@@ -288,10 +301,10 @@ class flowerpowerbt extends eqLogic {
     }
 
     $values=$flowerpower->getValues();
-    log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
+    //log::add('flowerpowerbt', 'debug', 'Values ' . print_r($values,true));
 
     foreach ($values as $mesure) {
-      log::add('flowerpowerbt', 'debug', 'Values ' . print_r($mesure,true));
+      //log::add('flowerpowerbt', 'debug', 'Values ' . print_r($mesure,true));
       $module=json_encode($mesure);
       $flowerpower=json_decode($module, true);
       $flowerpowerbt = self::byLogicalId($flowerpower['location_identifier'], 'flowerpowerbt');
