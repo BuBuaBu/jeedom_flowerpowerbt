@@ -25,7 +25,8 @@ try {
     }
 
     if (init('action') == 'postSave') {
-        ajax::success(flowerpowerbt::doConf());
+        ajax::success();
+        flowerpowerbt::doConf();
     }
 
     throw new Exception(__('{{Aucune methode correspondante à}} : ', __FILE__) . init('action'));
