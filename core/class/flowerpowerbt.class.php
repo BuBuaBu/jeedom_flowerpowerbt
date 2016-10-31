@@ -25,7 +25,7 @@ class flowerpowerbt extends eqLogic {
     log::add('flowerpowerbt', 'debug', 'cronHourly');
     flowerpowerbt::getGarden();
     flowerpowerbt::getFlower();
-    flowerpowerbt::scanFlower();
+    //flowerpowerbt::scanFlower();
   }
 
   public static function cronDaily() {
