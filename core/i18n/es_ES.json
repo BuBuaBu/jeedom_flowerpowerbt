@@ -1,0 +1,51 @@
+{
+    "plugins\/flowerpowerbt\/plugin_info\/configuration.php": {
+        "ID Client : ": "ID Client : ",
+        "Secret : ": "Secret : ",
+        "Identifiant Parrot : ": "Identifiant Parrot : ",
+        "Mot de passe : ": "Mot de passe : ",
+        "Synchro des données avec Parrot": "Synchro des données avec Parrot",
+        "Activer": "Activer",
+        "Port clef bluetooth": "Port clef bluetooth",
+        "Aucun": "Aucun"
+    },
+    "plugins\/flowerpowerbt\/desktop\/php\/flowerpowerbt.php": {
+        "Rechercher": "Rechercher",
+        "Gestion": "Gestion",
+        "Configuration": "Configuration",
+        "Mes Flower Power": "Mes Flower Power",
+        "Sauvegarder": "Sauvegarder",
+        "Supprimer": "Supprimer",
+        "Configuration avancée": "Configuration avancée",
+        "Equipement": "Equipement",
+        "Commandes": "Commandes",
+        "Flower Power": "Flower Power",
+        "Nom de l'équipement flowerpowerbt": "Nom de l'équipement flowerpowerbt",
+        "Objet parent": "Objet parent",
+        "Aucun": "Aucun",
+        "Catégorie": "Catégorie",
+        "Activer": "Activer",
+        "Visible": "Visible",
+        "Délai max entre 2 messages": "Délai max entre 2 messages",
+        "Commentaire": "Commentaire",
+        "ID du capteur": "ID du capteur",
+        "Nom de la plante": "Nom de la plante",
+        "Nom du capteur": "Nom du capteur",
+        "Couleur": "Couleur",
+        "Batterie": "Batterie",
+        "Dernière Collecte": "Dernière Collecte",
+        "Commande Alerte": "Commande Alerte",
+        "Nom": "Nom",
+        "Valeur": "Valeur",
+        "Paramètres": "Paramètres"
+    },
+    "plugins\/flowerpowerbt\/desktop\/js\/flowerpowerbt.js": {
+        "Nom de l\\'info": "Nom de l\\'info",
+        "Historiser": "Historiser",
+        "Tester": "Tester",
+        "Topic": "Topic",
+        "Valeur": "Valeur",
+        "Afficher": "Afficher",
+        "Afficher le Nom": "Afficher le Nom"
+    }
+}
