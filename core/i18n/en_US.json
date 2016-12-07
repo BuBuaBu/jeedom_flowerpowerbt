@@ -1,13 +1,13 @@
 {
     "plugins\/flowerpowerbt\/plugin_info\/configuration.php": {
-        "ID Client : ": "ID Client : ",
+        "ID Client : ": "ID Customer : ",
         "Secret : ": "Secret : ",
-        "Identifiant Parrot : ": "Identifiant Parrot : ",
-        "Mot de passe : ": "Mot de passe : ",
+        "Identifiant Parrot : ": "ID Parrot",
+        "Mot de passe : ": "Password:",
         "Synchro des données avec Parrot": "Synchro des données avec Parrot",
-        "Activer": "Activer",
-        "Port clef bluetooth": "Port clef bluetooth",
-        "Aucun": "Aucun"
+        "Activer": "Enable",
+        "Port clef bluetooth": "Bluetooth key port",
+        "Aucun": "None"
     },
     "plugins\/flowerpowerbt\/desktop\/php\/flowerpowerbt.php": {
         "Rechercher": "Rechercher",

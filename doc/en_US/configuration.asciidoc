@@ -1,4 +1,4 @@
-==== Configuration du plugin
+==== The plugin configuration
 
 Pour récupérer les informations des Parrot Flower Power, vous devez configurer votre compte Parrot sur la page de conf.
 
