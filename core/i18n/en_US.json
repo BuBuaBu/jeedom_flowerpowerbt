@@ -10,10 +10,10 @@
         "Aucun": "None"
     },
     "plugins\/flowerpowerbt\/desktop\/php\/flowerpowerbt.php": {
-        "Rechercher": "Rechercher",
-        "Gestion": "Gestion",
-        "Configuration": "Configuration",
-        "Mes Flower Power": "Mes Flower Power",
+        "Rechercher": "Search",
+        "Gestion": "Management",
+        "Configuration": "Setting",
+        "Mes Flower Power": "My Flower Power",
         "Sauvegarder": "Save",
         "Supprimer": "Delete",
         "Configuration avancée": "Configuration avancée",
