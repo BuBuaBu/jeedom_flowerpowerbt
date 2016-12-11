@@ -158,6 +158,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setName('Température de l\'Air');
         $cmdlogic->setLogicalId('air_temperature');
         $cmdlogic->setSubType('numeric');
+        $cmdlogic->setUnite('°C');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'air_temperature_status');
@@ -191,6 +192,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setName('Humidité du Sol');
         $cmdlogic->setLogicalId('soil_moisture');
         $cmdlogic->setSubType('numeric');
+        $cmdlogic->setUnite('%');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'soil_moisture_status');
@@ -257,6 +259,7 @@ class flowerpowerbt extends eqLogic {
         $cmdlogic->setName('Luminosité');
         $cmdlogic->setLogicalId('light');
         $cmdlogic->setSubType('numeric');
+        $cmdlogic->setUnite('lux');
         $cmdlogic->save();
       }
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($flowerpowerbt->getId(),'light_status');
@@ -382,9 +385,9 @@ class flowerpowerbt extends eqLogic {
       $cmdlogic->save();
       $cmdlogic->event($flowerpower['fertilizer']['instruction_key']);
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light');
-      $cmdlogic->setConfiguration('value', round($flowerpower['light']['gauge_values']['current_value'],2));
+      $cmdlogic->setConfiguration('value', round($flowerpower['light']['gauge_values']['current_value'],2)*53.93);
       $cmdlogic->save();
-      $cmdlogic->event(round($flowerpower['light']['gauge_values']['current_value'],2));
+      $cmdlogic->event(round($flowerpower['light']['gauge_values']['current_value'],2)*53.93);
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light_status');
       $cmdlogic->setConfiguration('value', $flowerpower['light']['status_key']);
       if ($flowerpower['light']['status_key'] != 'status_ok') {
