@@ -1,5 +1,5 @@
 [panel,primary]
-.Est-ce qu'on utilise l'API Parrot ?
+. Is the plugin uses API Parrot ?
 --
 Non, ce plugin utilise la connexion bluetooth vers les Flower Power. Vous pouvez choisir d'activer également la remontée vers l'API Parrot.
 --
