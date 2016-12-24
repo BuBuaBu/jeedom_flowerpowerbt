@@ -1,6 +1,6 @@
 ==== Parrot Flower and Pots
 
-Ce plugin utilise une connexion bluetooth fonctionnelle sur Jeedom pour se connecter aux flower power et pots et remonter les informations.
+This plugin uses a functional Bluetooth on Jeedom to connect to the flower power and pots and then back up information.
 
 Il n'est pas nécessaire de créer les équipements, le plugin créer automatiquement les Flower Power trouvées.
 
