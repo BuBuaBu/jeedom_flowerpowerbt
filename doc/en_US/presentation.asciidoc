@@ -2,7 +2,7 @@
 
 This plugin uses a functional Bluetooth on Jeedom to connect to the flower power and pots and then back up information.
 
-Il n'est pas nécessaire de créer les équipements, le plugin créer automatiquement les Flower Power trouvées.
+It is not necessary to create the equipment, the plugin automatically create the Flower Power found.
 
 Sans clef bluetooth le service récupère les valeurs de l'API Parrot
 
