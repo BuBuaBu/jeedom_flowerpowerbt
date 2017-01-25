@@ -2,7 +2,7 @@
 
 Pour récupérer les informations des Parrot Flower Power, vous devez configurer votre compte Parrot sur la page de conf.
 
-Il vous faut :
+Sie benötigen :
 
 - votre compte de l'appli mobile
 
@@ -10,7 +10,7 @@ Il vous faut :
 
 - votre compte API
 
-- votre clef API
+- Ihr API-Schlüssel
 
 Pour obtenir la clef API direction cette page : https://api-flower-power-pot.parrot.com/api_access/signup
 
