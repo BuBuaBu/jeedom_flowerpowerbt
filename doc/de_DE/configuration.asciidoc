@@ -4,11 +4,11 @@ Pour récupérer les informations des Parrot Flower Power, vous devez configurer
 
 Sie benötigen :
 
-- votre compte de l'appli mobile
+- Ihr Konto der mobilen App
 
-- votre mot de passe de l'appli mobile
+-Ihr Passwort der mobilen App
 
-- votre compte API
+- Ihr API-Konto
 
 - Ihr API-Schlüssel
 
