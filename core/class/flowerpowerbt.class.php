@@ -385,9 +385,9 @@ class flowerpowerbt extends eqLogic {
       $cmdlogic->save();
       $cmdlogic->event($flowerpower['fertilizer']['instruction_key']);
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light');
-      $cmdlogic->setConfiguration('value', round($flowerpower['light']['gauge_values']['current_value'],2)*53.93);
+      $cmdlogic->setConfiguration('value', round($flowerpower['light']['gauge_values']['current_value'],2)*53.93*11.574);
       $cmdlogic->save();
-      $cmdlogic->event(round($flowerpower['light']['gauge_values']['current_value'],2)*53.93);
+      $cmdlogic->event(round($flowerpower['light']['gauge_values']['current_value'],2)*53.93*11.574);
       $cmdlogic = flowerpowerbtCmd::byEqLogicIdAndLogicalId($id,'light_status');
       $cmdlogic->setConfiguration('value', $flowerpower['light']['status_key']);
       if ($flowerpower['light']['status_key'] != 'status_ok') {
