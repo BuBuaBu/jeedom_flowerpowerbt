@@ -6,8 +6,3 @@ Il n'est pas nécessaire de créer les équipements, le plugin créer automatiqu
 
 Sans clef bluetooth le service récupère les valeurs de l'API Parrot
 
-Voici par exemple des liens vers les produits Parrot compatibles :
-
-* http://amzn.to/2hWnwMJ[Flower Power]
-
-* http://amzn.to/2gYC9x7[Pot]
