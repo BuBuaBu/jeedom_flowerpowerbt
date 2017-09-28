@@ -5,9 +5,3 @@ This plugin uses a functional Bluetooth on Jeedom to connect to the flower power
 It is not necessary to create the equipment, the plugin automatically create the Flower Power found.
 
 Sans clef bluetooth le service récupère les valeurs de l'API Parrot
-
-Voici par exemple des liens vers les produits Parrot compatibles :
-
-* http://amzn.to/2hWnwMJ[Flower Power]
-
-* http://amzn.to/2gYC9x7[Pot]
